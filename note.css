@@ -1,0 +1,45 @@
+/* Mobile Phones (Portrait):
+Breakpoint: 0px to 479px (or up to 767px, depending on your design)
+
+Mobile Phones (Landscape):
+Breakpoint: 480px to 767px
+
+Tablets:
+Breakpoint: 768px to 991px
+
+Small Laptops and Desktops:
+Breakpoint: 992px to 1199px
+
+Large Laptops and Desktops:
+Breakpoint: 1200px and above */
+
+/* Mobile-first styles */
+body {
+    font-size: 16px;
+    /* Other mobile styles */
+  }
+  
+  /* Tablet styles */
+  @media screen and (min-width: 768px) {
+    body {
+      font-size: 18px;
+      /* Other tablet styles */
+    }
+  }
+  
+  /* Small laptop and desktop styles */
+  @media screen and (min-width: 992px) {
+    body {
+      font-size: 20px;
+      /* Other small laptop and desktop styles */
+    }
+  }
+  
+  /* Large desktop styles */
+  @media screen and (min-width: 1200px) {
+    body {
+      font-size: 22px;
+      /* Other large desktop styles */
+    }
+  }
+  

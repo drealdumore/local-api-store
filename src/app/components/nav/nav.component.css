@@ -1,0 +1,53 @@
+.nav__box {
+  background-color: var(--background);
+  border-top: 1px solid var(--border-color);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 3.7rem;
+  width: 100vw;
+}
+
+.nav__box ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 1rem;
+  margin: 0;
+  list-style: none;
+}
+
+.nav__box li a {
+  text-decoration: none;
+}
+
+.nav__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.nav__text {
+  color: var(--dark-grey);
+  padding-top: 3px;
+  font-size: 13px;
+}
+
+svg {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+svg path:first-child {
+  stroke: var(--dark-grey);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* svg path:nth-child(2) {
+    stroke: blue; 
+    stroke-width: 1.5; 
+    stroke-linejoin: round;
+  } */
