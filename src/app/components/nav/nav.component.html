@@ -1,8 +1,12 @@
-<div>
-  <div class="nav__box">
+<div class="nav__box">
+  <div class="desktop_nav">
+    <div class="img_box">
+      <img src="/assets/img/logo.png" alt="logo" />
+    </div>
+
     <ul>
-      <li>
-        <a href="">
+      <li [routerLink]="'/home'" routerLinkActive="desktop_nav--active">
+        <a href="/home">
           <div class="nav__item">
             <svg
               width="24"
@@ -30,8 +34,8 @@
         </a>
       </li>
 
-      <li>
-        <a href="">
+      <li [routerLink]="'/categories'" routerLinkActive="desktop_nav--active">
+        <a href="/categories">
           <div class="nav__item">
             <svg
               width="24"
@@ -40,28 +44,43 @@
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                d="M17.5 17.5L22 22"
+              <circle
+                cx="17.75"
+                cy="6.25"
+                r="4.25"
                 stroke="#141B34"
                 stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
               />
-              <path
-                d="M20 11C20 6.02944 15.9706 2 11 2C6.02944 2 2 6.02944 2 11C2 15.9706 6.02944 20 11 20C15.9706 20 20 15.9706 20 11Z"
+              <circle
+                cx="6.25"
+                cy="6.25"
+                r="4.25"
                 stroke="#141B34"
                 stroke-width="1.5"
-                stroke-linejoin="round"
+              />
+              <circle
+                cx="17.75"
+                cy="17.75"
+                r="4.25"
+                stroke="#141B34"
+                stroke-width="1.5"
+              />
+              <circle
+                cx="6.25"
+                cy="17.75"
+                r="4.25"
+                stroke="#141B34"
+                stroke-width="1.5"
               />
             </svg>
 
-            <p class="nav__text">Search</p>
+            <p class="nav__text">Category</p>
           </div>
         </a>
       </li>
 
-      <li>
-        <a href="">
+      <li [routerLink]="'/wishlist'" routerLinkActive="desktop_nav--active">
+        <a href="/wishlist">
           <div class="nav__item">
             <svg
               width="24"
@@ -83,8 +102,8 @@
         </a>
       </li>
 
-      <li>
-        <a href="">
+      <li [routerLink]="'/cart'" routerLinkActive="desktop_nav--active">
+        <a href="/cart">
           <div class="nav__item">
             <svg
               width="24"
@@ -119,8 +138,8 @@
         </a>
       </li>
 
-      <li>
-        <a href="">
+      <li [routerLink]="'/profile'" routerLinkActive="desktop_nav--active">
+        <a href="/profile">
           <div class="nav__item">
             <svg
               width="24"
@@ -147,6 +166,54 @@
           </div>
         </a>
       </li>
+
+      <li class="more">
+        <a href="">
+          <div class="nav__item">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4 5L20 5"
+                stroke="#141B34"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M4 12L20 12"
+                stroke="#141B34"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M4 19L20 19"
+                stroke="#141B34"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+
+            <p class="nav__text">More</p>
+          </div>
+        </a>
+      </li>
     </ul>
+  </div>
+
+  <div class="user">
+    <div class="user_avatar">
+      <span>S</span>
+    </div>
+    <div class="user_details">
+      <p class="user_name">Saint x.</p>
+      <p class="user_mail">jypuzutij@mailinator...</p>
+    </div>
   </div>
 </div>

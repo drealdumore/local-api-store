@@ -2,20 +2,19 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { IProductResponse } from '../interfaces/product';
+import { Product } from '../interfaces/product';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProductService {
+export class CategoryService {
   private url = 'http://localhost:5500/api/v1';
 
   constructor(private http: HttpClient) {}
 
-  products$ = this.http.get<IProductResponse>(`${this.url}/product`).pipe(
-    // tap((data) => console.log('products:', JSON.stringify(data))),
-    // tap((data) => console.log('products:', data.data.data)),
-    map((products) => products.data.data),
+  categories$ = this.http.get<any[]>(`${this.url}/category`).pipe(
+    tap((data) => console.log('categories:', JSON.stringify(data))),
+    map((categories) => categories),
     catchError(this.handleError)
   );
 

@@ -15,6 +15,7 @@ import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ProductComponent } from './components/product/product.component';
+import { CategoriesComponent } from './pages/categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ProductComponent } from './components/product/product.component';
     CartComponent,
     ProfileComponent,
     ProductComponent,
+    CategoriesComponent,
   ],
   imports: [
     BrowserModule,

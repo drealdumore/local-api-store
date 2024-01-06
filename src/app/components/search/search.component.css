@@ -3,9 +3,10 @@
 input {
   background: transparent;
   width: 100%;
-  height: 2.3rem;
+  height: auto;
   border: none;
   text-transform: capitalize;
+  font-size: 17px;
 }
 
 input:focus-visible {
@@ -20,17 +21,17 @@ form {
 }
 
 div {
-    border: 1px solid var(--border-color);
+  border: 1px solid var(--border-color);
   background: white;
   border-radius: 5px;
   height: 2rem;
-  height: 1.7rem;
+  height: 2rem;
   padding: 6px;
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 15rem;
+  width: 30rem;
   transition: all 0.4s ease;
 }
 

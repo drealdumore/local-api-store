@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { EMPTY, catchError, tap } from 'rxjs';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
-  selector: 'app-product-list',
+  selector: 'product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent {
+  errorMessage: string = '';
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  products$ = this.productService.products$.pipe(
+    catchError((err) => {
+      this.errorMessage = err;
+      return EMPTY;
+    })
+  );
+  
+  constructor(private productService: ProductService) {}
 
 }
