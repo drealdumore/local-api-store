@@ -1,0 +1,216 @@
+<!-- <div class="container" (click)="close()">
+    <div (click)="$event.stopPropagation()">
+      <div
+        class="form-container"
+        *ngIf="!authToggle"
+        [ngClass]="'slideAndFadeIn'"
+      >
+        <div class="top">
+          <p class="title">Log in</p>
+          <p class="p">to continue to DriveFinder.</p>
+        </div>
+  
+        <div class="auth__container">
+          <div class="buttons-container">
+            <div class="google-login-button" (click)="loginWithGoogle()">
+              <img src="./assets/img/icons/google.svg" alt="google icon" />
+  
+              <span>Continue with Google</span>
+            </div>
+          </div>
+  
+          <div class="separator-container">
+            <div class="separator-line"></div>
+            <div class="separator-text">or</div>
+            <div class="separator-line"></div>
+          </div>
+  
+          <form
+            class="form"
+            [formGroup]="loginForm"
+            (ngSubmit)="signinWithEmail()"
+          >
+            <div class="input-group">
+              <label class="user-label">Email Address</label>
+              <input
+                type="email"
+                required
+                class="input"
+                formControlName="email"
+                [ngClass]="{ 'is-invalid': loginEmailMessage }"
+              />
+              <span class="error-span">
+                <span>
+                  {{ loginEmailMessage }}
+                </span>
+              </span>
+            </div>
+  
+            <div class="input-group">
+              <label class="user-label">Password</label>
+              <div class="input-box">
+                <div
+                  class="password"
+                  [ngClass]="{ 'is-invalid': loginPasswordMessage }"
+                >
+                  <input
+                    style="padding-right: 8px; border: none"
+                    type="{{ showPassword ? 'text' : 'password' }}"
+                    required
+                    class="input"
+                    formControlName="password"
+                  />
+                  <span class="eye-span" (click)="togglePasswordVisibility()">
+                    <img
+                      *ngIf="showPassword; else closedEye"
+                      class="eye"
+                      src="/assets/img/icons/eye.svg"
+                    />
+                    <ng-template #closedEye>
+                      <img src="/assets/img/icons/eye-closed.svg" class="eye" />
+                    </ng-template>
+                  </span>
+                </div>
+  
+                <span class="error-span">
+                  <span>
+                    {{ loginPasswordMessage }}
+                  </span>
+                </span>
+              </div>
+  
+              <div class="flex-row">
+                <div class="row">
+                  <input type="checkbox" formControlName="rememberMe" />
+                  <label>Remember me </label>
+                </div>
+                <span class="span">Forgot password?</span>
+              </div>
+            </div>
+  
+            <button
+              class="form-btn"
+              [title]="
+                loginForm.valid
+                  ? 'Login to your account'
+                  : 'Disabled until form data is valid'
+              "
+              [disabled]="!loginForm.valid"
+            >
+              Log in
+            </button>
+          </form>
+        </div>
+  
+        <p class="sign-up-label">
+          Don't have an account?
+          <span (click)="authToggleFn()" class="sign-up-link">Sign up</span>
+        </p>
+      </div>
+  
+      <div class="form-container" *ngIf="authToggle" [ngClass]="'slideAndFadeIn'">
+        <div class="top">
+          <p class="title">Create an Account</p>
+          <p class="p">to continue to DriveFinder.</p>
+        </div>
+  
+        <div class="auth__container">
+          <div class="buttons-container">
+            <div class="google-login-button" (click)="loginWithGoogle()">
+              <img src="./assets/img/icons/google.svg" alt="google icon" />
+  
+              <span>Continue with Google</span>
+            </div>
+          </div>
+  
+          <div class="separator-container">
+            <div class="separator-line"></div>
+            <div class="separator-text">or</div>
+            <div class="separator-line"></div>
+          </div>
+  
+          <form
+            class="form"
+            [formGroup]="signupForm"
+            (ngSubmit)="registerWithEmail()"
+          >
+            <div class="input-group">
+              <label class="user-label">Email Address</label>
+              <input
+                type="email"
+                required
+                class="input"
+                formControlName="email"
+                [ngClass]="{ 'is-invalid': signupEmailMessage }"
+              />
+              <span class="error-span">
+                <span>
+                  {{ signupEmailMessage }}
+                </span>
+              </span>
+            </div>
+  
+            <div class="input-group">
+              <label class="user-label">Password</label>
+              <div class="input-box">
+                <div
+                  class="password"
+                  [ngClass]="{
+                    'is-invalid': signupPasswordMessage
+                  }"
+                >
+                  <input
+                    style="padding-right: 8px; border: none"
+                    type="{{ showPassword ? 'text' : 'password' }}"
+                    required
+                    class="input"
+                    formControlName="password"
+                  />
+  
+                  <span class="eye-span" (click)="togglePasswordVisibility()">
+                    <img
+                      *ngIf="showPassword; else closedEye"
+                      class="eye"
+                      src="/assets/img/icons/eye.svg"
+                    />
+                    <ng-template #closedEye>
+                      <img src="/assets/img/icons/eye-closed.svg" class="eye" />
+                    </ng-template>
+                  </span>
+                </div>
+  
+                <span class="error-span">
+                  <span>
+                    {{ signupPasswordMessage }}
+                  </span>
+                </span>
+              </div>
+            </div>
+  
+            <button
+              class="form-btn"
+              [title]="
+                signupForm.valid
+                  ? 'Create account'
+                  : 'Disabled until form data is valid'
+              "
+              [disabled]="!signupForm.valid"
+            >
+              Create Account
+            </button>
+          </form>
+        </div>
+  
+        <p class="sign-up-label">
+          Already have an account?
+          <span (click)="authToggleFn()" class="sign-up-link">Sign in</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- At least 8 characters long (and less than 100 characters)
+  Contains at least 1 number
+  Contains at least 1 lowercase letter
+  Contains at least 1 uppercase letter
+  Contains a special character (e.g. @ !) --> -->

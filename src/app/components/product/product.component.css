@@ -1,21 +1,28 @@
 .products {
   display: flex;
   justify-content: center;
-  /* align-items: center; */
   flex-wrap: wrap;
   gap: 1rem;
-  overflow: scroll;
-  height: 75vh;
-  padding: 1rem 0;
 }
 
 .product {
-  background-color: var(--light-grey);
+  /* background-color: var(--light-grey);
+  width: 13rem;
+  overflow: hidden;
+  padding: 1rem 0px;
+  border-radius: 5px;
+  transition: all 0.3s ease; */
   width: 13rem;
   overflow: hidden;
   padding: 1rem 0px;
   border-radius: 5px;
   transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+  height: 12rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  cursor: grab;
 }
 
 .product:hover {
@@ -47,11 +54,13 @@ main {
 
 .product_name {
   text-transform: capitalize;
+  font-size: 1rem;
 }
 
 .product_price {
   display: flex;
   justify-content: space-between;
+  font-size: 0.9rem;
 }
 
 .button {
@@ -61,6 +70,7 @@ main {
 }
 
 .add_btn {
+  width: 100%;
   background: none;
   border: 1px solid var(--border-color);
   border-radius: 5px;
@@ -74,9 +84,10 @@ main {
 
 .slash_price {
   text-decoration: line-through;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 16px;
   color: var(--dark-grey);
+  color: #a70d0d;
 }
 
 .naira {

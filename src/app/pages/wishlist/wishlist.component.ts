@@ -11,6 +11,6 @@ export class WishlistComponent implements OnInit {
   constructor( private titleService: Title) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle('Swiftcart | Home')
+    this.titleService.setTitle('Swiftcart | Wishlist')
   }
 }

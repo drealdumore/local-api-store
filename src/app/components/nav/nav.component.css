@@ -12,7 +12,7 @@
 }
 
 .desktop_nav--active {
-  background: #b5d3b5;
+  background: #b5d3b5 !important;
 }
 
 .desktop_nav {

@@ -16,6 +16,11 @@ import { CartComponent } from './pages/cart/cart.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ProductComponent } from './components/product/product.component';
 import { CategoriesComponent } from './pages/categories/categories.component';
+import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
+import { CategoryListComponent } from './components/category-list/category-list.component';
+import { CategoryComponent } from './components/category/category.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +35,11 @@ import { CategoriesComponent } from './pages/categories/categories.component';
     ProfileComponent,
     ProductComponent,
     CategoriesComponent,
+    ProductDetailComponent,
+    CategoryListComponent,
+    CategoryComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
