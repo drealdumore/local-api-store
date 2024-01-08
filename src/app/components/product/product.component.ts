@@ -5,11 +5,14 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Component, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 import { IProduct } from 'src/app/interfaces/product';
 
 @Component({
   selector: 'product',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css'],
   animations: [

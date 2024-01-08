@@ -1,10 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { EMPTY, catchError, tap } from 'rxjs';
 import { ProductService } from 'src/app/services/product.service';
+import { ProductComponent } from '../product/product.component';
 
 @Component({
   selector: 'product-list',
+  standalone: true,
   templateUrl: './product-list.component.html',
+  imports: [CommonModule, ProductComponent],
   styleUrls: ['./product-list.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
