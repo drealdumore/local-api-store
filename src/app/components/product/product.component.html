@@ -1,28 +1,50 @@
 <div class="products">
-  <article class="product" *ngFor="let product of products">
-    <div class="product_img">
-      <!-- <img alt="Product Image" class="product__image" src="/img/products/250x250_product-5f34d519883c8c0017f7e2ef-1597297945686-cover.jpeg"> -->
-      <!-- <img [src]="product.images[0]" [alt]="product.name" /> -->
-      <!-- <img [src]="product.imageCover" [alt]="product.name" /> -->
-      <img src="/assets/img/f700e.webp" alt="" />
+  <ng-container *ngIf="loading; else content">
+    <article class="product-skeleton" @fadeInOut *ngFor="let product of products">
+      <div class="product_img">
+        <div class="skeleton-loader__image"></div>
+      </div>
 
-      <!-- <img src="/img/products/75x75_product-5f340b60b698290017019ee2-1597246305173-blue.jpeg" [alt]="product.name" /> -->
-    </div>
-    <div class="product_content">
-      <h3 class="product_name">{{ product.name }}</h3>
-      <div class="product_price">
-        <h3>
-          <span class="naira">₦</span>
-          {{ product.highPrice | number }}
-        </h3>
-        <h3 class="slash_price" *ngIf="product.discountedLowPrice">
-          <span class="naira">₦</span>
-          {{ product.discountedLowPrice | number }}
-        </h3>
+      <div class="product_content">
+        <h3 class="skeleton-loader__title"></h3>
+        <div class="product_price">
+          <h3 class="skeleton-loader__price">
+            <span class="naira"></span>
+          </h3>
+
+          <h3 class="slash_price skeleton-loader__price">
+            <span class="naira"></span>
+          </h3>
+        </div>
+        <div class="button">
+          <button class="skeleton-loader__button"></button>
+        </div>
       </div>
-      <div class="button">
-        <button class="add_btn">Add to cart</button>
+    </article>
+  </ng-container>
+
+  <ng-template #content>
+    <article class="product" @fadeInOut *ngFor="let product of products">
+      <div class="product_img">
+        <img src="/assets/img/f700e.webp" alt="" />
       </div>
-    </div>
-  </article>
+      <div class="product_content">
+        <h3 class="product_name">{{ product.name }}</h3>
+        <div class="product_price">
+          <h3>
+            <span class="naira">₦</span>
+            {{ product.highPrice | number }}
+          </h3>
+          <h3 class="slash_price" *ngIf="product.discountedLowPrice">
+            <span class="naira">₦</span>
+            {{ product.discountedLowPrice | number }}
+          </h3>
+        </div>
+        <div class="button">
+          <button class="add_btn">Add to cart</button>
+        </div>
+      </div>
+    </article>
+    
+  </ng-template>
 </div>

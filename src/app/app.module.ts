@@ -21,7 +21,6 @@ import { CategoryListComponent } from './components/category-list/category-list.
 import { CategoryComponent } from './components/category/category.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-
 @NgModule({
   declarations: [
     AppComponent,

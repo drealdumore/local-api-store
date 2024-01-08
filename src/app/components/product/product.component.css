@@ -5,21 +5,21 @@
   gap: 1rem;
 }
 
-.product {
-  /* background-color: var(--light-grey);
-  width: 13rem;
-  overflow: hidden;
-  padding: 1rem 0px;
-  border-radius: 5px;
-  transition: all 0.3s ease; */
-  width: 13rem;
+/* .products > *:last-child {
+  margin-left: 30rem;
+} */
+
+.product,
+.product-skeleton {
+  width: 14rem;
   overflow: hidden;
   padding: 1rem 0px;
   border-radius: 5px;
   transition: all 0.3s ease;
   border: 1px solid var(--border-color);
-  height: 12rem;
+  height: 17rem;
   display: flex;
+  position: relative;
   justify-content: space-between;
   flex-direction: column;
   cursor: grab;
@@ -41,7 +41,8 @@ main {
   justify-content: center;
 }
 
-.product_img img {
+.product_img img,
+.skeleton-loader__image {
   width: 10rem;
 }
 
@@ -52,24 +53,28 @@ main {
   flex-direction: column;
 }
 
-.product_name {
+.product_name,
+.skeleton-loader__title {
   text-transform: capitalize;
   font-size: 1rem;
 }
 
-.product_price {
+.product_price,
+.skeleton-loader__price {
   display: flex;
   justify-content: space-between;
   font-size: 0.9rem;
 }
 
-.button {
+.button,
+.skeleton-loader__button {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.add_btn {
+.add_btn,
+.skeleton-loader__button {
   width: 100%;
   background: none;
   border: 1px solid var(--border-color);
@@ -92,4 +97,52 @@ main {
 
 .naira {
   font-family: Roboto, sans-serif;
+}
+
+.product-skeleton {
+  border: 1px solid #eceef2;
+}
+
+.skeleton-loader__image {
+  animation: skeleton-loading 1s ease-in-out infinite;
+  background: var(--grey-grey6);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  height: 173.53px;
+  width: 207.96px;
+}
+
+.skeleton-loader__price,
+.skeleton-loader__title {
+  animation: skeleton-loading 1s ease-in-out infinite;
+  background: var(--grey-grey6);
+  border-radius: 8px;
+  height: 16.57px;
+}
+
+.skeleton-loader__price {
+  width: 73.1px;
+}
+.skeleton-loader__price,
+.skeleton-loader__title {
+  animation: skeleton-loading 1s ease-in-out infinite;
+  background: #f7f9fc;
+  background: var(--grey-grey6);
+  border-radius: 8px;
+  height: 21.57px;
+}
+
+.skeleton-loader__button {
+  align-items: center;
+  animation: skeleton-loading 1s ease-in-out infinite;
+  background: var(--grey-grey6);
+  justify-content: center;
+  border: none;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  height: 32px;
+  letter-spacing: 0.01em;
+  line-height: 18px;
+  padding: 8px 12px;
 }

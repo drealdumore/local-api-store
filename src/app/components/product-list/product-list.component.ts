@@ -10,14 +10,15 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductListComponent {
   errorMessage: string = '';
+  loader: boolean = true;
 
   products$ = this.productService.products$.pipe(
+    tap(() => (this.loader = false)), 
     catchError((err) => {
       this.errorMessage = err;
-      return EMPTY;
+      return EMPTY; 
     })
   );
-  
-  constructor(private productService: ProductService) {}
 
+  constructor(private productService: ProductService) {}
 }

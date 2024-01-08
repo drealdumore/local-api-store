@@ -8,15 +8,6 @@ main {
 }
 
 .container {
-  /* overflow-y: scroll;
-  position: relative;
-  padding: 0 3rem;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  height: 75vh; */
-
   overflow-y: scroll;
   position: relative;
   padding: 0 3rem;
@@ -24,8 +15,7 @@ main {
   justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
-  /* height: calc(100% - 111rem); */
-  height: 78vh;
+  height: clamp(32rem, 80%, 87vh);
 }
 
 .navigation {

@@ -6,6 +6,8 @@
   --grey: #71717a;
   --dark-grey: #52525b;
   --light-grey: #e4e4e7;
+  /* --grey-grey6: #f7f9fc; */
+  --grey-grey6: #eceef2;
 }
 
 html,
@@ -35,13 +37,41 @@ button:disabled:hover {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #535050;
+  background-color:  #d4d0d0;
   margin-block: 0.25em;
   border-radius: 0.3em;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #dfd9d9;
+  background: #888;
   border-radius: 0.3em;
 }
 
+@keyframes skeleton-loading {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@-webkit-keyframes skeleton-loading {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.page_title {
+  font-style: normal;
+  text-align: left;
+}
