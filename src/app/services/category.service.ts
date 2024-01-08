@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Product } from '../interfaces/product';
+import { ICategoryResponse } from '../interfaces/categories';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +12,8 @@ export class CategoryService {
 
   constructor(private http: HttpClient) {}
 
-  categories$ = this.http.get<any[]>(`${this.url}/category`).pipe(
-    tap((data) => console.log('categories:', JSON.stringify(data))),
-    map((categories) => categories),
+  categories$ = this.http.get<ICategoryResponse>(`${this.url}/category`).pipe(
+    map((categories) => categories.data.data),
     catchError(this.handleError)
   );
 

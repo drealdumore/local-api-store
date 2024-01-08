@@ -1,15 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { SearchComponent } from '../search/search.component';
 
 @Component({
   selector: 'top',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SearchComponent],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  constructor() {}
 
-  ngOnInit(): void {}
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
 }

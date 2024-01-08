@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ICategory } from 'src/app/interfaces/categories';
 
 @Component({
   selector: 'category',
@@ -9,5 +10,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent {
+  @Input() categories: ICategory[] = []
 
 }
