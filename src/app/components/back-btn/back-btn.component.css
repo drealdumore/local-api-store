@@ -1,0 +1,21 @@
+.back_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: 1px solid var(--border-color);
+  padding: 4px 13px;
+  border-radius: 5px;
+  transition: all 0.4s ease;
+}
+
+.back_btn:hover {
+  background: var(--border-color);
+  border: 1px solid transparent;
+}
+
+.back_btn svg {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}

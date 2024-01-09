@@ -37,7 +37,7 @@ button:disabled:hover {
 }
 
 ::-webkit-scrollbar-track {
-  background-color:  #d4d0d0;
+  background-color: #d4d0d0;
   margin-block: 0.25em;
   border-radius: 0.3em;
 }

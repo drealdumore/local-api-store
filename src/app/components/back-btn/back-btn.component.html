@@ -1,6 +1,4 @@
-<div class="" *ngIf="detail$ | async as detail"></div>
-
-<button class="back_btn">
+<button class="back_btn" (click)="back()">
   <svg
     width="24"
     height="24"
@@ -16,14 +14,5 @@
       stroke-linejoin="round"
     />
   </svg>
-  <span>Back</span>
+  <span click>Back</span>
 </button>
-
-<main class="product-detail">
-  <div class="img_box">
-    <img src="/assets/img/f700e.webp" alt="" />
-  </div>
-  <div class="detail">
-    
-  </div>
-</main>

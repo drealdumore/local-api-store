@@ -18,7 +18,6 @@ export class CategoryListComponent implements OnInit {
   data: any;
 
   categories$ = this.categoryService.categories$.pipe(
-    tap((data) => console.log(data)),
     catchError((err) => {
       this.errorMessage = err;
       return EMPTY;

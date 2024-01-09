@@ -1,0 +1,10 @@
+.stars__box {
+  overflow: hidden;
+  width: 95px;
+}
+
+.stars {
+  width: 100px;
+  color: gold;
+  font-size: 1.2rem;
+}

@@ -9,6 +9,12 @@
   margin-left: 30rem;
 } */
 
+a {
+  text-decoration: none;
+  /* pointer-events: none; */
+  color: inherit;
+}
+
 .product,
 .product-skeleton {
   width: 14rem;

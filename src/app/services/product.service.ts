@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { IProductResponse } from '../interfaces/product';
 
@@ -18,6 +18,43 @@ export class ProductService {
     map((products) => products.data.data),
     catchError(this.handleError)
   );
+
+  product$ = this.products$.pipe(
+    
+    map((products) =>
+      products.find((product) => product.id === '5f3441ae5e39c50017cdeee5')
+    ),
+    tap((product) => console.log('pro :', product)),
+    catchError(this.handleError)
+  );
+
+
+  getProductReview(id: string): Observable<any> {
+    const productUrl = `${this.url}/product/${id}/reviews`;
+
+    return this.http.get<any>(productUrl).pipe(
+      map((product) => product.data.data),
+      catchError(this.handleError)
+    );
+  }
+
+  getRelatedProducts(id: string): Observable<any> {
+    const productUrl = `${this.url}/product/related/${id}`;
+
+    return this.http.get<any>(productUrl).pipe(
+      map((product) => product.data.data),
+      catchError(this.handleError)
+    );
+  }
+
+  // getProductById(id: string): Observable<IProductResponse> {
+  //   const productUrl = `${this.url}/product/${id}`;
+
+  //   return this.http.get<IProductResponse>(productUrl).pipe(
+  //     map((product) => product.data.data),
+  //     catchError(this.handleError)
+  //   );
+  // }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

@@ -7,12 +7,13 @@ import {
 } from '@angular/animations';
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { IProduct } from 'src/app/interfaces/product';
 
 @Component({
   selector: 'product',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css'],
   animations: [
