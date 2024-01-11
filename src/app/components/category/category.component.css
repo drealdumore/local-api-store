@@ -6,15 +6,16 @@
 }
 
 .category {
-  border: 1px solid var(--border-color);
   border: 1px solid transparent;
   border-radius: 16px;
   box-shadow: 0 1px 8px rgba(0, 6, 125, 0.1);
-  height: 128px;
+  height: 41px;
   padding: 16px;
   transition: all 0.2s ease-in-out;
   width: 250px;
   cursor: grab;
+  display: flex;
+  align-items: center;
 }
 
 .category:hover {
@@ -24,12 +25,13 @@
 a {
   text-decoration: none;
   color: #000;
+  width: 100%;
 }
 
 .category_content {
   display: flex;
-  /* justify-content: center; */
   align-items: center;
+  justify-content: space-between;
 }
 
 img {
@@ -42,7 +44,7 @@ img {
 
 .category_content h2 {
   text-transform: capitalize;
-  font-size: 17px;
+  font-size: 19px;
 }
 
 svg {

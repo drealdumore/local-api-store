@@ -25,10 +25,10 @@
 
   <ng-template #content>
     <article class="product" @fadeInOut *ngFor="let product of products">
-      <a href="products/" [routerLink]="['products', product.id]">
+      <a href="/products/" [routerLink]="['/products', product.id]">
       
         <div class="product_img">
-          <img src="/assets/img/f700e.webp" alt="" />
+          <img [src]="'http://localhost:5500/img/products/250x250_' + product.imageCover" [alt]="product.name" />
         </div>
         <div class="product_content">
           <h3 class="product_name">{{ product.name }}</h3>

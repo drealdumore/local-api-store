@@ -1,29 +1,184 @@
-<div class="" *ngIf="detail$ | async as detail"></div>
+<div class="container" *ngIf="detail$ | async as detail">
+  <back-btn></back-btn>
 
-<button class="back_btn">
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M15 6C15 6 9.00001 10.4189 9 12C8.99999 13.5812 15 18 15 18"
-      stroke="#141B34"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-  </svg>
-  <span>Back</span>
-</button>
+  <main>
+    <div class="wrapper flex">
+      <div class="imgs flex">
+        <div class="main_img">
+          <img
+            [src]="
+              'http://localhost:5500/img/products/800x800_' + detail.imageCover
+            "
+            [alt]="detail.name"
+          />
+        </div>
+        <div class="img_sub">
+          <div class="sub_img" *ngFor="let img of detail.images">
+            <img
+              [src]="'http://localhost:5500/img/products/800x800_' + img"
+              [alt]="detail.name"
+            />
+          </div>
+        </div>
+      </div>
 
-<main class="product-detail">
-  <div class="img_box">
-    <img src="/assets/img/f700e.webp" alt="" />
-  </div>
-  <div class="detail">
-    
-  </div>
-</main>
+      <div class="detail">
+        <p class="category_name">{{ detail.category.name }}</p>
+        <h2 class="product_name">{{ detail.name }}</h2>
+
+        <div class="starviews">
+          <star></star>
+          <p class="reviews">({{ detail.colour[0].quantity }} reviews)</p>
+        </div>
+
+        <div class="prices">
+          <h3 class="slashed_price">
+            {{ detail.lowPrice | currency }}
+          </h3>
+          <h3 class="price">
+            {{ detail.highPrice | currency }}
+          </h3>
+        </div>
+
+        <div>
+          <p class="select_p category_name">Select colors</p>
+          <div class="colors">
+            <button *ngFor="let color of detail.colour">
+              {{ color.colour }}
+            </button>
+          </div>
+        </div>
+
+        <div class="quantity">
+          <div class="border">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16 12L8 12"
+                stroke="#141B34"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z"
+                stroke="#141B34"
+                stroke-width="1.5"
+              />
+            </svg>
+
+            <span>1</span>
+
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 8V16M16 12L8 12"
+                stroke="#141B34"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z"
+                stroke="#141B34"
+                stroke-width="1.5"
+              />
+            </svg>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button class="button checkout">Checkout Now</button>
+          <button class="button cart">add to cart</button>
+        </div>
+
+        <div class="tabs">
+          <div class="tab-2">
+            <label for="tab2-1">Description</label>
+            <input id="tab2-1" name="tabs-two" type="radio" checked="checked" />
+            <div style="width: 22rem; text-align: justify">
+              <p>
+                {{ detail.description }}
+              </p>
+            </div>
+          </div>
+          <div class="tab-2">
+            <label for="tab2-2">Model</label>
+            <input id="tab2-2" name="tabs-two" type="radio" />
+            <div
+              style="
+                width: 21rem;
+                text-align: justify;
+                margin: 0;
+                right: 4.1rem;
+                position: absolute;
+              "
+            >
+              <p>
+                {{ detail.specification.model }}
+              </p>
+            </div>
+          </div>
+          <div class="tab-2">
+            <label for="tab2-3">Material</label>
+            <input id="tab2-3" name="tabs-two" type="radio" />
+            <div
+              style="
+                width: 22rem;
+                text-align: justify;
+                margin: 0;
+                right: 3.5rem;
+                position: absolute;
+              "
+            >
+              <p>
+                {{ detail.specification.material }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="review_top">Customer Reviews</h2>
+    <div class="wrapper">
+      <article *ngFor="let review of detail.reviews">
+        <div *ngIf="review; else template">
+          <div class="item">
+            <star></star>
+            <p class="date">{{ review.createdAt | date : "dd/MM/yy" }}</p>
+          </div>
+          <div class="review_content">
+            <h2>{{ extractName(review.user.name) }}</h2>
+            <p>{{ review.review }}</p>
+          </div>
+        </div>
+      </article>
+      <ng-template #template>
+        <h2>No reviews yet</h2>
+      </ng-template>
+    </div>
+
+    <main>
+      <div>
+        <h2 class="review_top">Related Products</h2>
+        <div class="wrapper">
+          <product
+            *ngIf="related$ | async as products"
+            [products]="products"
+          ></product>
+        </div>
+      </div>
+    </main>
+  </main>
+</div>

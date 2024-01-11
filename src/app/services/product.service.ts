@@ -20,7 +20,6 @@ export class ProductService {
   );
 
   product$ = this.products$.pipe(
-    
     map((products) =>
       products.find((product) => product.id === '5f3441ae5e39c50017cdeee5')
     ),
@@ -28,12 +27,13 @@ export class ProductService {
     catchError(this.handleError)
   );
 
-
-  getProductReview(id: string): Observable<any> {
-    const productUrl = `${this.url}/product/${id}/reviews`;
+  getProduct(id: string): Observable<any> {
+    const productUrl = `${this.url}/product/${id}`;
 
     return this.http.get<any>(productUrl).pipe(
-      map((product) => product.data.data),
+      tap((data) => console.log(data.data.data)),
+      map((data) => data),
+
       catchError(this.handleError)
     );
   }
@@ -47,14 +47,6 @@ export class ProductService {
     );
   }
 
-  // getProductById(id: string): Observable<IProductResponse> {
-  //   const productUrl = `${this.url}/product/${id}`;
-
-  //   return this.http.get<IProductResponse>(productUrl).pipe(
-  //     map((product) => product.data.data),
-  //     catchError(this.handleError)
-  //   );
-  // }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

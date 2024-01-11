@@ -4,9 +4,9 @@ import { HomeComponent } from '../pages/home/home.component';
 import { ProductDetailGuard } from './product-detail.guard';
 
 export const PRODUCT_ROUTES: Routes = [
-  { path: '', component: HomeComponent },
+  { path: 'products', component: HomeComponent },
   {
-    path: ':id',
+    path: '/:id',
     canActivate: [ProductDetailGuard],
     component: ProductDetailComponent,
   },

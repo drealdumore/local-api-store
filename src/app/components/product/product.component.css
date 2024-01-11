@@ -50,6 +50,7 @@ main {
 .product_img img,
 .skeleton-loader__image {
   width: 10rem;
+  border-radius: 4px;
 }
 
 .product_content {
@@ -63,6 +64,7 @@ main {
 .skeleton-loader__title {
   text-transform: capitalize;
   font-size: 1rem;
+  height: 30px;
 }
 
 .product_price,

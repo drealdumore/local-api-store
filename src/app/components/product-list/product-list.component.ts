@@ -16,13 +16,15 @@ export class ProductListComponent {
   errorMessage: string = '';
   loader: boolean = true;
 
+  constructor(private productService: ProductService) {}
+
   products$ = this.productService.products$.pipe(
-    tap(() => (this.loader = false)), 
+    // tap((data) => (console.log(data)
+    // )),
+    tap(() => (this.loader = false)),
     catchError((err) => {
       this.errorMessage = err;
-      return EMPTY; 
+      return EMPTY;
     })
   );
-
-  constructor(private productService: ProductService) {}
 }

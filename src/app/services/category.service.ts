@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { ICategoryResponse } from '../interfaces/categories';
+import { IProduct, IProductResponse } from '../interfaces/product';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,37 @@ export class CategoryService {
     map((categories) => categories.data.data),
     catchError(this.handleError)
   );
+
+  // getCategory(id: string): Observable<IProductResponse> {
+  //   const categoryUrl = `${this.url}/category/${id}`;
+  //   return this.http.get<IProductResponse>(categoryUrl).pipe(
+  //     tap(
+  //       (data) => console.log(data),
+  //       map((data) => data.data.data),
+  //       catchError(this.handleError)
+  //     )
+  //   );
+  // }
+
+  // getCategory(id: string): Observable<IProductResponse> {
+  //   const categoryUrl = `${this.url}/category/${id}`;
+  //   return this.http.get<IProductResponse>(categoryUrl).pipe(
+  //     tap(
+  //       (data: IProductResponse) => console.log(data),
+  //       map((data: IProductResponse) => data.data.data),
+  //       // catchError(this.handleError)
+  //     )
+  //   );
+  // }
+  
+  getCategory(id: string): Observable<IProduct[]> {
+    const categoryUrl = `${this.url}/category/${id}`;
+    return this.http.get<IProductResponse>(categoryUrl).pipe(
+      map((response: IProductResponse) => response.data.data),
+      catchError(this.handleError)
+    );
+  }
+  
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

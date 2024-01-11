@@ -1,4 +1,7 @@
-<ng-container class="container" *ngIf="categories$ | async as categories">
-  <h2 class="">Categories</h2>
-  <category [categories]="categories"></category>
+<ng-container *ngIf="categories$ | async as categories">
+  <div class="container">
+    <back-btn></back-btn>
+    <h2 class="">Categories</h2>
+    <category [categories]="categories"></category>
+  </div>
 </ng-container>
