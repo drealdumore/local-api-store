@@ -1,0 +1,63 @@
+@-webkit-keyframes slideRightReturn {
+  0% {
+    transform-origin: 0 0;
+    transform: translateX(100%);
+  }
+  100% {
+    transform-origin: 0 0;
+    transform: translateX(0%);
+  }
+}
+@keyframes slideRightReturn {
+  0% {
+    transform-origin: 0 0;
+    transform: translateX(100%);
+  }
+  100% {
+    transform-origin: 0 0;
+    transform: translateX(0%);
+  }
+}
+
+
+.active-component {
+  animation: slideRightReturn .4s ease;
+}
+
+
+
+.profile {
+  /* width: 668px; */
+  width: 920px;
+  padding: 2rem 1rem;
+  overflow-x: hidden;
+}
+
+.tabs {
+  gap: 3rem;
+  display: flex;
+  flex-direction: row;
+  height: 46px;
+  width: 100%;
+  border-bottom: 1px solid var(--border-color);
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.tab {
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  gap: 10px;
+  justify-content: center;
+  line-height: 24px;
+  max-width: max-content;
+  display: flex;
+  flex-direction: row;
+  height: 44px;
+  width: 81%;
+}
+.tab-active {
+  border-bottom: 2px solid #000;
+}

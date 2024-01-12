@@ -3,6 +3,7 @@
 :root {
   --background: #fcfcfc;
   --border-color: #e5e7eb;
+  --green-color: #728e72;
   --grey: #71717a;
   --dark-grey: #52525b;
   --light-grey: #e4e4e7;
@@ -47,6 +48,11 @@ button:disabled:hover {
   border-radius: 0.3em;
 }
 
+::selection {
+  background-color: #000;
+  color: #fff;
+}
+
 @keyframes skeleton-loading {
   0% {
     opacity: 0.5;
@@ -72,6 +78,8 @@ button:disabled:hover {
 }
 
 .page_title {
+  font-size: 2rem;
+  font-weight: 600;
   font-style: normal;
   text-align: left;
 }

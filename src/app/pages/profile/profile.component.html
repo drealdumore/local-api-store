@@ -1,1 +1,28 @@
-<p>profile works!</p>
+<div class="profile">
+  <back-btn></back-btn>
+  <h2 class="page_title">Profile</h2>
+  <div class="tabs">
+    <div
+      class="tab"
+      [ngClass]="isAccountDetail ? 'tab-active' : ''"
+      (click)="isAccountDetail = true"
+    >
+      <h3>Account details</h3>
+    </div>
+    <div
+      class="tab"
+      [ngClass]="!isAccountDetail ? 'tab-active' : ''"
+      (click)="isAccountDetail = false"
+    >
+      <h3>Address book</h3>
+    </div>
+  </div>
+
+  <div class="active-component" *ngIf="isAccountDetail">
+    <account-details></account-details>
+  </div>
+
+  <div class="active-component" *ngIf="!isAccountDetail">
+    <address-book></address-book>
+  </div>
+</div>

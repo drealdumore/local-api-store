@@ -7,7 +7,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { tap, catchError, EMPTY, Observable, map } from 'rxjs';
 import { BackBtnComponent } from 'src/app/components/back-btn/back-btn.component';
 import { ProductComponent } from 'src/app/components/product/product.component';
@@ -23,30 +23,44 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product-detail.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
 export class ProductDetailComponent implements OnInit {
   constructor(private productService: ProductService) {}
 
   detail$: Observable<any> | undefined;
   related$: Observable<any> | undefined;
+  loading: boolean = false;
+
   @Input() id = '';
 
   ngOnInit(): void {
     if (this.id) {
       this.detail$ = this.productService.getProduct(this.id).pipe(
+        map((data) => data.data.data),
+
         catchError(() => {
           return EMPTY;
         })
       );
-      this.related$ = this.productService.getRelatedProducts(this.id).pipe(
-        tap((data) => console.log(data)),
-        catchError(() => {
-          return EMPTY;
-        })
-      );
+
+      // this.related$ = this.productService.getRelatedProducts(this.id).pipe(
+      //   tap((data) => console.log(data)),
+      //   map((data) => data.data.data),
+
+      //   catchError(() => {
+      //     return EMPTY;
+      //   })
+      // );
+
+      // Inside ProductDetailComponent
+this.related$ = this.productService.getRelatedProducts(this.id).pipe(
+  tap((data) => console.log('Related Products:', data)),
+  map((data) => data.data.data),
+  catchError(() => EMPTY)
+);
+
     }
   }
-
-  
 
   extractName(fullName: string): string {
     // Split the full name into individual words

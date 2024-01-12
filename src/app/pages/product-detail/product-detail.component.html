@@ -172,11 +172,8 @@
     <main>
       <div>
         <h2 class="review_top">Related Products</h2>
-        <div class="wrapper">
-          <product
-            *ngIf="related$ | async as products"
-            [products]="products"
-          ></product>
+        <div class="wrapper" *ngIf="related$ | async as relatedData">
+          <product [products]="relatedData" [loading]="loading"></product>
         </div>
       </div>
     </main>

@@ -1,0 +1,120 @@
+.wrapped-heading {
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--dark-grey);
+}
+
+.avatar {
+  background: var(--green-color);;
+  border-radius: 50%;
+  height: 6rem;
+  width: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  font-weight: 900;
+  color: white;
+}
+
+form {
+  padding: 2rem 0;
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: column;
+  width: 80%;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.input label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--dark-grey);
+}
+
+.input input {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  padding: 0px 11px;
+  font-size: 17px;
+  text-transform: capitalize;
+  transition: all 0.4s ease-in-out;
+}
+
+.input-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.email-box {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border: 1px solid var(--border-color);
+  padding: 12px 13px;
+  border-radius: 5px;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.email-box:hover {
+  border: 1px solid var(--green-color);
+}
+
+.mailpassbox {
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.content {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.emailpass span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.usermail {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+svg path {
+  stroke: var(--green-color);
+}
+
+.veridate p {
+  text-transform: capitalize;
+  font-size: 14px;
+}
+
+.veridate svg {
+  height: 16px;
+  width: 16px;
+}
+
+.change-password {
+  font-weight: 600;
+  color: var(--green-color);
+  transition: all .4s ease;
+}
+
+.change-password:hover {
+  text-decoration: underline;
+  color: var(--green-color);
+}

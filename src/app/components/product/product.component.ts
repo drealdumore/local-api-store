@@ -6,7 +6,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { CommonModule, NgIf } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IProduct } from 'src/app/interfaces/product';
 
@@ -25,7 +25,13 @@ import { IProduct } from 'src/app/interfaces/product';
     ]),
   ],
 })
-export class ProductComponent {
+export class ProductComponent implements OnInit {
   @Input() products: IProduct[] = [];
   @Input() loading: boolean = true;
+
+  constructor() {}
+
+  ngOnInit(): void {
+    console.log(this.products);
+  }
 }

@@ -1,0 +1,69 @@
+.wrapped-heading {
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--dark-grey);
+}
+
+.edit-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit-flex button {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+  gap: 4px;
+  height: 31px;
+  width: 70px;
+  transition: all 0.4s ease-in-out;
+}
+
+.edit-flex button:hover {
+  background: var(--border-color);
+}
+
+.edit-flex button svg {
+  height: 16px;
+  width: 16px;
+}
+
+.edit-flex button svg path {
+  stroke: #000;
+}
+
+form {
+  padding: 1rem 0;
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: column;
+  width: 80%;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.input label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--dark-grey);
+}
+
+.input input {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  padding: 0px 11px;
+  font-size: 17px;
+  text-transform: capitalize;
+  transition: all 0.4s ease-in-out;
+}

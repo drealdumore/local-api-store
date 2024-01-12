@@ -18,28 +18,6 @@ export class CategoryService {
     catchError(this.handleError)
   );
 
-  // getCategory(id: string): Observable<IProductResponse> {
-  //   const categoryUrl = `${this.url}/category/${id}`;
-  //   return this.http.get<IProductResponse>(categoryUrl).pipe(
-  //     tap(
-  //       (data) => console.log(data),
-  //       map((data) => data.data.data),
-  //       catchError(this.handleError)
-  //     )
-  //   );
-  // }
-
-  // getCategory(id: string): Observable<IProductResponse> {
-  //   const categoryUrl = `${this.url}/category/${id}`;
-  //   return this.http.get<IProductResponse>(categoryUrl).pipe(
-  //     tap(
-  //       (data: IProductResponse) => console.log(data),
-  //       map((data: IProductResponse) => data.data.data),
-  //       // catchError(this.handleError)
-  //     )
-  //   );
-  // }
-  
   getCategory(id: string): Observable<IProduct[]> {
     const categoryUrl = `${this.url}/category/${id}`;
     return this.http.get<IProductResponse>(categoryUrl).pipe(
@@ -47,7 +25,6 @@ export class CategoryService {
       catchError(this.handleError)
     );
   }
-  
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

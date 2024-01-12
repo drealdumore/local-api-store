@@ -31,9 +31,7 @@ export class ProductService {
     const productUrl = `${this.url}/product/${id}`;
 
     return this.http.get<any>(productUrl).pipe(
-      tap((data) => console.log(data.data.data)),
       map((data) => data),
-
       catchError(this.handleError)
     );
   }
@@ -42,11 +40,11 @@ export class ProductService {
     const productUrl = `${this.url}/product/related/${id}`;
 
     return this.http.get<any>(productUrl).pipe(
+      tap((data) => console.log(data)),
       map((product) => product.data.data),
       catchError(this.handleError)
     );
   }
-
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
