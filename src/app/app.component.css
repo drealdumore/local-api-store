@@ -24,6 +24,7 @@ main {
 
 .main {
   grid-column: main-start/ main-end;
+  /* width: 94%; */
 }
 
 @media screen and (max-width: 992px) {

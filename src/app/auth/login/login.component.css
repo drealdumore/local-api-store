@@ -1,343 +1,85 @@
-/* .slideAndFadeIn {
-    animation: slideAndFadeIn 0.5s ease-in-out;
-  }
-  
-  @keyframes slideAndFadeIn {
-    0% {
-      transform: translateX(20%);
-      opacity: 0;
-    }
-    100% {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-  
-  label {
-    font-size: 0.9rem;
-    font-weight: 500;
-  }
-  
-  .form-btn {
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: 1px solid transparent;
-    background: var(--color-black);
-    color: var(--color-white);
-    cursor: pointer;
-    transition: all 0.8s;
-    font-size: 1rem;
-  }
-  
-  .form-btn:hover {
-    box-shadow: none;
-    background: var(--color-ash);
-    border: 1px solid var(--color-white);
-  }
-  
-  .sign-up-label {
-    margin: 0;
-    font-size: 1rem;
-    color: var(--color-ash);
-    padding-top: 8px;
-  }
-  
-  .sign-up-link {
-    margin-left: 1px;
-    font-size: 1rem;
-    text-decoration: underline;
-    color: var(--color-black);
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.4s ease;
-  }
-  
-  .sign-up-link:hover {
-    color: var(--color-white);
-  }
-  
-  .buttons-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    margin-top: 20px;
-    gap: 15px;
-    font-family: inherit;
-  }
-  
-  .apple-login-button,
-  .google-login-button {
-    border-radius: 0.2rem;
-    box-sizing: border-box;
-    padding: 10px 15px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 11px;
-    gap: 5px;
-  }
-  
-  .google-login-button {
-    color: var(--color-black);
-    background-color: var(--color-white);
-    cursor: pointer;
-    font-size: 15px;
-    transition: filter 0.4s ease;
-  }
-  
-  .google-login-button:hover {
-    filter: drop-shadow(2px 4px 6px grey);
-  }
-  
-  .page-link {
-    text-decoration: underline;
-    margin: 0;
-    text-align: end;
-    color: var(--color-ash);
-  }
-  
-  .page-link-label {
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 10px;
-    font-weight: 700;
-  }
-  
-  .page-link-label:hover {
-    color: var(--color-white);
-  }
-  
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  
-  
-  .container {
-    padding: 0;
-    position: relative;
-    backdrop-filter: blur(2px);
-    display: flex;
-    -moz-box-align: center;
-    align-items: center;
-    -moz-box-pack: center;
-    justify-content: center;
-    background-color: rgba(51, 51, 51, 0.6);
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    height: 100%;
-    width: 100%;
-    z-index: 20;
-  }
-  
-  video {
-    width: 100%;
-    height: auto;
-    filter: brightness(73%);
-  }
-  
-  .form-container {
-    width: 350px;
-    height: auto;
-    border-radius: 10px;
-    box-sizing: border-box;
-    padding: 20px 30px;
-    top: 7rem;
-    right: 8%;
-    background: var(--dark-body-font-color);
-  }
-  
-  .top {
-    margin: 0;
-    font-weight: 600;
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-  
-  .title {
-    font-size: 24px;
-    margin-bottom: 5px;
-  }
-  
-  .p {
-    font-size: 15px;
-    color: var(--color-ash);
-  }
-  
-  .form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-  
-  .input {
-    border-radius: 0.2rem;
-    width: 100%;
-    border: 1px solid var(--grey-secondary);
-    outline: 0 !important;
-    box-sizing: border-box;
-    padding: 12px 15px;
-    background-color: transparent;
-    transition: all 0.4s;
-    color: var(--grey-secondary);
-    font-weight: 600;
-  }
-  
-  .separator-container {
-    display: flex;
-    align-items: center;
-    color: #fff;
-  }
-  
-  .separator-line {
-    flex-grow: 1;
-    height: 1px;
-    background-color: #fff;
-    margin: 0 10px;
-  }
-  
-  .separator-text {
-    font-size: 16px;
-    font-weight: bold;
-    color: var(--color-black);
-  }
-  
-  .auth__container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .eye {
-    width: 1.2rem;
-  }
-  
-  .eye-span {
-    padding-top: 5px;
-    cursor: pointer;
-  }
-  
-  .input-box {
-    position: relative;
-  }
-  
-  .flex-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    justify-content: space-between;
-  }
-  
-  .flex-row > div > label {
-    font-size: 14px;
-    color: var(--color-black);
-    font-weight: 400;
-  }
-  
-  .span {
-    font-size: 14px;
-    margin-left: 5px;
-    color: var(--grey-secondary);
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  
-  .span:hover {
-    text-decoration: underline;
-  }
-  
-  .row {
-    display: flex;
-  }
-  
-  .password {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 1rem;
-    border-radius: 0.2rem;
-    border: 1px solid var(--grey-secondary);
-    transition: all 0.4s;
-  }
-  
-  .password:focus-within {
-    border: 1.5px solid var(--color-black);
-  }
-  
-  .is-invalid {
-    border: 1px solid var(--color-error);
-    color: var(--color-error);
-  }
-  
-  .slideLeft {
-    -webkit-animation-name: slideLeft;
-    animation-name: slideLeft;
-  }
-  
-  @-webkit-keyframes slideLeft {
-    0% {
-      transform-origin: 0 0;
-      transform: translateX(0%);
-    }
-    100% {
-      transform-origin: 0 0;
-      transform: translateX(-100%);
-    }
-  }
-  @keyframes slideLeft {
-    0% {
-      transform-origin: 0 0;
-      transform: translateX(0%);
-    }
-    100% {
-      transform-origin: 0 0;
-      transform: translateX(-100%);
-    }
-  }
-  
-  .openUpLeftOut {
-    -webkit-animation-name: openUpLeftOut;
-    animation-name: openUpLeftOut;
-  }
-  
-  @-webkit-keyframes openUpLeftOut {
-    0% {
-      opacity: 1;
-      transform-origin: top left;
-      transform: rotate(0deg);
-      -webkit-animation-timing-function: ease-out;
-      animation-timing-function: ease-out;
-    }
-    100% {
-      opacity: 0;
-      transform-origin: top left;
-      transform: rotate(110deg);
-      -webkit-animation-timing-function: ease-in-out;
-      animation-timing-function: ease-in-out;
-    }
-  }
-  @keyframes openUpLeftOut {
-    0% {
-      opacity: 1;
-      transform-origin: top left;
-      transform: rotate(0deg);
-      -webkit-animation-timing-function: ease-out;
-      animation-timing-function: ease-out;
-    }
-    100% {
-      opacity: 0;
-      transform-origin: top left;
-      transform: rotate(110deg);
-      -webkit-animation-timing-function: ease-in-out;
-      animation-timing-function: ease-in-out;
-    }
-  } */
+.container {
+  width: 70vw;
+  padding: 0 2rem;
+}
+
+.logo img {
+  width: 7rem;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth_box {
+  width: 33rem;
+}
+
+.welcome {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome h2 {
+  font-size: 2.2rem;
+}
+
+.welcome img {
+  width: 3rem;
+}
+
+.form-container {
+  padding: 2rem 0;
+}
+
+.form_inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  padding-bottom: 2rem;
+}
+
+form button {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+  border: none;
+  font-size: 1.2rem;
+  background: var(--black);
+  color: var(--white);
+  transition: all 0.4s ease;
+}
+
+form button:hover {
+  background-color: #333;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.input label {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark-grey);
+  text-transform: capitalize;
+}
+
+.input input {
+  height: 46px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  padding: 0px 11px;
+  font-size: 17px;
+  text-transform: capitalize;
+  transition: all 0.4s ease-in-out;
+}

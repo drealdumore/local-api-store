@@ -12,7 +12,6 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './app/pages/home/home.component';
 import { ProductDetailGuard } from './app/components/product-detail.guard';
-import { ProductDetailComponent } from './app/pages/product-detail/product-detail.component';
 
 if (environment.production) {
   enableProdMode();
@@ -25,22 +24,27 @@ bootstrapApplication(AppComponent, {
     provideRouter(
       [
         { path: 'home', component: HomeComponent, title: 'Home' },
-        // {
-        //   path: 'products',
-        //   title: 'Products',
-        //   loadChildren: () =>
-        //     import('./app/components/product.routes').then(
-        //       (r) => r.PRODUCT_ROUTES
-        //     ),
-        // },
-        // {
-        //   path: 'products/:id',
-        //   canActivate: [ProductDetailGuard],
-        //   component: ProductDetailComponent,
-        // },
+        {
+          path: 'auth/login',
+          title: 'Login',
+          loadComponent: () =>
+            import('./app/auth/login/login.component').then(
+              (c) => c.LoginComponent
+            ),
+        },
+        {
+          path: 'auth/signup',
+          title: 'Signup',
+          loadComponent: () =>
+            import('./app/auth/register/register.component').then(
+              (c) => c.RegisterComponent
+            ),
+        },
+
         {
           path: 'products/:id',
           title: 'Product Detail',
+          canActivate: [ProductDetailGuard],
           loadComponent: () =>
             import('./app/pages/product-detail/product-detail.component').then(
               (c) => c.ProductDetailComponent

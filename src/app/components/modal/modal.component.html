@@ -1,0 +1,5 @@
+<div class="container" (click)="close()">
+  <div (click)="$event.stopPropagation()">
+    <ng-content></ng-content>
+  </div>
+</div>

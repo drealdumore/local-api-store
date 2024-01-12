@@ -1,0 +1,17 @@
+.container {
+  padding: 0;
+  position: relative;
+  backdrop-filter: blur(2px);
+  display: flex;
+  -moz-box-align: center;
+  align-items: center;
+  -moz-box-pack: center;
+  justify-content: center;
+  background-color: rgba(51, 51, 51, 0.6);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  z-index: 20;
+}
