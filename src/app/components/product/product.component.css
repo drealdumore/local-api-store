@@ -99,8 +99,7 @@ main {
   text-decoration: line-through;
   font-weight: 500;
   font-size: 16px;
-  color: var(--dark-grey);
-  color: #a70d0d;
+  color: var(--red);
 }
 
 .naira {

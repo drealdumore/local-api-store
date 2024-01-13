@@ -1,0 +1,55 @@
+.wrapper {
+  padding-top: 4.3rem;
+}
+
+.template {
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+  width: 253px;
+  border-radius: 7px;
+}
+
+h2 {
+  margin: 0;
+  padding: 14px 0;
+  font-weight: 400;
+}
+
+.summary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding-top: 1rem;
+}
+
+.summary_top {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.orders,
+.sub_total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.orders span {
+  background-color: var(--border-color);
+  border-radius: 18px;
+  padding: 4px 10px;
+}
+
+button {
+  width: 100%;
+  padding: 8px 5px;
+  color: var(--white);
+  background: var(--black);
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  text-transform: capitalize;
+  font-weight: 300;
+}

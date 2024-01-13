@@ -6,8 +6,12 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
+  showPassword: boolean = false;
 
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 }

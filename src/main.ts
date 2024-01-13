@@ -33,7 +33,7 @@ bootstrapApplication(AppComponent, {
             ),
         },
         {
-          path: 'auth/signup',
+          path: 'auth/register',
           title: 'Signup',
           loadComponent: () =>
             import('./app/auth/register/register.component').then(

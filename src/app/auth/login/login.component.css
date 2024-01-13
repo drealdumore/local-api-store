@@ -74,7 +74,7 @@ form button:hover {
   text-transform: capitalize;
 }
 
-.input input {
+.email-input {
   height: 46px;
   border-radius: 5px;
   border: 1px solid var(--border-color);
@@ -82,4 +82,72 @@ form button:hover {
   font-size: 17px;
   text-transform: capitalize;
   transition: all 0.4s ease-in-out;
+  outline: none;
+}
+
+.password {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 1rem;
+  border-radius: 0.2rem;
+  border: 1px solid var(--border-color);
+  transition: all 0.4s;
+}
+
+.password-input {
+  width: 100%;
+  outline: 0 !important;
+  box-sizing: border-box;
+  background-color: transparent;
+  border: none;
+  height: 46px;
+  border-radius: 5px;
+  padding: 0px 11px;
+  font-size: 17px;
+  text-transform: capitalize;
+  transition: all 0.4s ease-in-out;
+}
+
+.password:focus-within,
+.email-input:focus-visible,
+.email-input:focus {
+  border: 1.5px solid var(--black);
+}
+
+.password:hover,
+.email-input:hover {
+  border: 1.5px solid var(--black);
+  cursor: pointer;
+}
+
+#links {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  gap: 1rem;
+  font-size: 17px;
+}
+
+a {
+  text-decoration: underline;
+  transition: all 0.4s ease;
+  color: inherit;
+}
+
+a:hover {
+  color: var(--green-color);
+  cursor: alias;
+}
+
+::placeholder {
+  color: #a3a5a8;
+  font-size: 1rem;
+  font-family: "Lato";
+}
+
+svg {
+  padding-top: 5px;
+  cursor: pointer;
 }

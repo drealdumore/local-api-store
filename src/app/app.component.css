@@ -1,7 +1,8 @@
 main {
   display: grid;
   /* grid-template-columns: 200px calc(100% - 200px); */
-  grid-template-columns: [nav-start] 278px [nav-end main-start] 1fr [main-end];
+  /* grid-template-columns: [nav-start] 278px [nav-end main-start] 1fr [main-end]; */
+  grid-template-columns: [nav-start] 260px [nav-end main-start] 1fr [main-end];
   grid-template-rows: 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
