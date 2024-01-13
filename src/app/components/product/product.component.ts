@@ -34,4 +34,13 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.products);
   }
+
+  addToCart(event: Event): void {
+    // Perform your 'Add to cart' logic here
+
+    // Stop the event propagation
+    event.stopPropagation();
+    console.log('red');
+    
+  }
 }

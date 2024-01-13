@@ -46,6 +46,16 @@ export class ProductService {
     );
   }
 
+  searchProducts(query: string): Observable<any> {
+    const productUrl = `${this.url}/product/search?search=${query}`;
+
+    return this.http.get<any>(productUrl).pipe(
+      tap((data) => console.log(data)),
+      map((product) => product.data.data),
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

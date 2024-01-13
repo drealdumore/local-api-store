@@ -9,6 +9,10 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from 'src/environments/environment';
+import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './app/pages/home/home.component';
 import { ProductDetailGuard } from './app/components/product-detail.guard';
@@ -19,7 +23,9 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(BrowserModule, BrowserAnimationsModule),
+    importProvidersFrom(BrowserModule, BrowserAnimationsModule,   AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    ToastrModule.forRoot(),),
     provideHttpClient(withInterceptorsFromDi()),
     provideRouter(
       [
