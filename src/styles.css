@@ -7,6 +7,7 @@
   --black: #000;
   --white: #fff;
   --red: #a70d0d;
+  --color-error: rgb(157, 12, 12);
   --active-color: #b5d3b5;
   --grey: #71717a;
   --dark-grey: #52525b;
@@ -33,6 +34,37 @@ button {
 
 button:disabled:hover {
   cursor: not-allowed;
+}
+
+.new-nav {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.error-span {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 9px 0;
+}
+
+.error-span svg {
+  padding: 0 !important;
+}
+
+.error-span svg path,
+.error-span svg circle {
+  stroke: var(--color-error);
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  color: var(--color-error);
+  font-size: 17px;
+  gap: 5px;
+  width: max-content;
 }
 
 ::-webkit-scrollbar {
@@ -90,3 +122,4 @@ button:disabled:hover {
 svg path {
   stroke: var(--black);
 }
+

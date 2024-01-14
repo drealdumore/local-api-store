@@ -11,7 +11,11 @@
       </div>
 
       <div class="form-container">
-        <form action="">
+        <form
+          action=""
+          [formGroup]="registerForm"
+          (ngSubmit)="registerWithEmail()"
+        >
           <div class="form_inputs">
             <div class="input">
               <label for="address">Email address</label>
@@ -19,12 +23,17 @@
                 type="email"
                 class="email-input"
                 placeholder="Enter your Email Address"
+                formControlName="email"
+                [ngClass]="{ 'is-invalid': EmailMessage }"
               />
             </div>
 
             <div class="input">
               <label for="address">password</label>
-              <div class="password">
+              <div
+                class="password"
+                [ngClass]="{ 'is-invalid': PasswordMessage }"
+              >
                 <input
                   type="password"
                   placeholder="Enter your password"
@@ -103,16 +112,92 @@
               </div>
             </div>
           </div>
-          <button>Log in</button>
+          <button
+            [title]="
+              registerForm.valid
+                ? 'Login to your account'
+                : 'Disabled until form data is valid'
+            "
+            [disabled]="!registerForm.valid"
+            (click)="registerWithEmail()"
+          >
+            Register
+          </button>
         </form>
       </div>
+
+      <span *ngIf="hasError" class="error-span">
+        <span class="error-message" *ngIf="EmailMessage">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="#141B34"
+              stroke-width="1.5"
+            />
+            <path
+              d="M11.992 15H12.001"
+              stroke="#141B34"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M12 12L12 8"
+              stroke="#141B34"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          {{ EmailMessage }}
+        </span>
+
+        <span *ngIf="PasswordMessage" class="error-message">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="#141B34"
+              stroke-width="1.5"
+            />
+            <path
+              d="M11.992 15H12.001"
+              stroke="#141B34"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M12 12L12 8"
+              stroke="#141B34"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          {{ PasswordMessage }}
+        </span>
+      </span>
+
       <div id="links">
-        <p class="forgot_password">
-          Forgot password? <span><a href="">Reset it here</a></span>
-        </p>
         <p class="create_link">
-          Are you new to SwiftCart?
-          <span><a href="/auth/login">Create an account</a></span>
+          Already have an account?
+          <span><a href="/auth/login">Login to SwiftCart</a></span>
         </p>
       </div>
     </div>
