@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ModalService } from '../services/modal.service';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'logout-modal',

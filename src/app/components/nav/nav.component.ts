@@ -13,6 +13,7 @@ export class NavComponent implements OnInit {
   user: string = '';
   userEmail: string = '';
   firstLetter: string = '';
+  truncatedUserEmail: string = '';
 
   constructor() {}
 
@@ -21,10 +22,18 @@ export class NavComponent implements OnInit {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       this.user = JSON.parse(storedUser).displayName;
+      console.log(this.user);
+      
       this.userEmail = JSON.parse(storedUser).email;
 
       // to display the first letter of the userEmail.
       this.firstLetter = this.userEmail.charAt(0).toUpperCase();
+
+      // Truncate userEmail if it's more than 9 characters
+      this.truncatedUserEmail =
+        this.userEmail.length > 20
+          ? this.userEmail.substring(0, 9) + '...'
+          : this.userEmail;
     }
   }
 }

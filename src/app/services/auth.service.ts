@@ -44,4 +44,19 @@ export class AuthService {
   getUser(): User | null {
     return this.user;
   }
+
+  setDisplayName(displayName: string): Promise<void> {
+    return this.afs.currentUser
+      .then((user) => {
+        if (user) {
+          return user.updateProfile({ displayName });
+        } else {
+          throw new Error('User not logged in.');
+        }
+      })
+      .catch((error) => {
+        console.error('Error setting display name:', error);
+        throw error;
+      });
+  }
 }

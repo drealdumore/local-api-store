@@ -5,13 +5,8 @@
   gap: 1rem;
 }
 
-/* .products > *:last-child {
-  margin-left: 30rem;
-} */
-
 a {
   text-decoration: none;
-  /* pointer-events: none; */
   color: inherit;
 }
 
@@ -28,7 +23,7 @@ a {
   position: relative;
   justify-content: space-between;
   flex-direction: column;
-  cursor: grab;
+  cursor: pointer;
 }
 
 .product:hover {
@@ -81,8 +76,7 @@ main {
   align-items: center;
 }
 
-.add_btn,
-.skeleton-loader__button {
+.add_btn {
   width: 100%;
   background: none;
   border: 1px solid var(--border-color);
@@ -112,7 +106,7 @@ main {
 
 .skeleton-loader__image {
   animation: skeleton-loading 1s ease-in-out infinite;
-  background: var(var(--grey-grey));
+  background: var(--grey-grey);
   border-radius: 8px;
   margin-bottom: 10px;
   height: 173.53px;
@@ -122,7 +116,7 @@ main {
 .skeleton-loader__price,
 .skeleton-loader__title {
   animation: skeleton-loading 1s ease-in-out infinite;
-  background: var(var(--grey-grey));
+  background: var(--grey-grey);
   border-radius: 8px;
   height: 16.57px;
 }
@@ -134,7 +128,7 @@ main {
 .skeleton-loader__title {
   animation: skeleton-loading 1s ease-in-out infinite;
   background: #f7f9fc;
-  background: var(var(--grey-grey));
+  background: var(--grey-grey);
   border-radius: 8px;
   height: 21.57px;
 }
@@ -142,7 +136,7 @@ main {
 .skeleton-loader__button {
   align-items: center;
   animation: skeleton-loading 1s ease-in-out infinite;
-  background: var(var(--grey-grey));
+  background: var(--grey-grey);
   justify-content: center;
   border: none;
   border-radius: 5px;
@@ -151,5 +145,6 @@ main {
   height: 32px;
   letter-spacing: 0.01em;
   line-height: 18px;
+  width: 100%;
   padding: 8px 12px;
 }

@@ -9,14 +9,24 @@ main {
 }
 
 .container {
-  overflow-y: scroll;
+  /* overflow-y: scroll;
   position: relative;
   padding: 0 3rem;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
+  height: clamp(32rem, 80%, 87vh); */
+  overflow-y: scroll;
+  position: relative;
+  padding: 0 3rem;
+    padding-bottom: 0px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
   height: clamp(32rem, 80%, 87vh);
+  padding-bottom: 2rem;
 }
 
 .navigation {

@@ -13,7 +13,7 @@
   padding: 16px;
   transition: all 0.2s ease-in-out;
   width: 250px;
-  cursor: grab;
+  cursor: pointer;
   display: flex;
   align-items: center;
 }

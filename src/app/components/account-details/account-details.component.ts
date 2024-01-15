@@ -10,8 +10,10 @@ import { CommonModule } from '@angular/common';
 })
 export class AccountDetailsComponent {
   @Output() modalFn = new EventEmitter<any>();
+  @Output() passwordModalFn = new EventEmitter<any>();
   @Input() userDetail: any[] = [];
-  @Input() firstLetter: string = ''
+  @Input() firstLetter: string = '';
+  @Input() userEmail: string = '';
 
   logout() {
     this.modalFn.emit();

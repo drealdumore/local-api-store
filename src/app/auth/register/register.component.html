@@ -24,7 +24,19 @@
                 class="email-input"
                 placeholder="Enter your Email Address"
                 formControlName="email"
-                [ngClass]="{ 'is-invalid': EmailMessage }"
+                [ngClass]="{ 'error-border': EmailMessage }"
+              />
+            </div>
+
+            <div class="input">
+              <label for="address">Nickname</label>
+              <input
+                type="text"
+                maxlength="10"
+                class="email-input"
+                placeholder="What should we call you?"
+                formControlName="nickName"
+                [ngClass]="{ 'error-border': NicknameMessage }"
               />
             </div>
 
@@ -32,7 +44,7 @@
               <label for="address">password</label>
               <div
                 class="password"
-                [ngClass]="{ 'is-invalid': PasswordMessage }"
+                [ngClass]="{ 'error-border': PasswordMessage }"
               >
                 <input
                   type="password"
@@ -127,6 +139,39 @@
       </div>
 
       <span *ngIf="hasError" class="error-span">
+        <span *ngIf="NicknameMessage" class="error-message">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="#141B34"
+              stroke-width="1.5"
+            />
+            <path
+              d="M11.992 15H12.001"
+              stroke="#141B34"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M12 12L12 8"
+              stroke="#141B34"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          {{ NicknameMessage }}
+        </span>
+
         <span class="error-message" *ngIf="EmailMessage">
           <svg
             width="24"

@@ -208,12 +208,12 @@
   </div>
 
   <div class="user">
-    <div class="user_avatar">
-      <span>{{firstLetter}}</span>
+    <div class="user_avatar" *ngIf="firstLetter">
+      <span>{{ firstLetter }}</span>
     </div>
     <div class="user_details">
-      <p class="user_name">Saint x.</p>
-      <p class="user_mail">{{userEmail}}</p>
+      <p class="user_name">{{ user }}</p>
+      <p class="user_mail">{{ truncatedUserEmail }}</p>
     </div>
   </div>
 </div>

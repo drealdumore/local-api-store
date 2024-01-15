@@ -27,12 +27,21 @@ import { IProduct } from 'src/app/interfaces/product';
 })
 export class ProductComponent implements OnInit {
   @Input() products: IProduct[] = [];
-  @Input() loading: boolean = true;
+  loading: boolean = true;
+  // @Input() loading: boolean = true;
 
-  constructor() {}
+  constructor() {
+    if (this.products.length > 1) {
+      this.loading = false;
+    }
+  }
 
   ngOnInit(): void {
-    console.log(this.products);
+    // console.log(this.products);
+    console.log(this.products.length);
+    if (this.products.length > 1) {
+      this.loading = false;
+    }
   }
 
   addToCart(event: Event): void {
@@ -41,6 +50,5 @@ export class ProductComponent implements OnInit {
     // Stop the event propagation
     event.stopPropagation();
     console.log('red');
-    
   }
 }

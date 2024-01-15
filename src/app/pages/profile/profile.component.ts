@@ -12,7 +12,7 @@ import { AccountDetailsComponent } from 'src/app/components/account-details/acco
 import { AddressBookComponent } from 'src/app/components/address-book/address-book.component';
 import { BackBtnComponent } from 'src/app/components/back-btn/back-btn.component';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
-import { LogoutModalComponent } from 'src/app/logout-modal/logout-modal.component';
+import { LogoutModalComponent } from 'src/app/components/logout-modal/logout-modal.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { ModalService } from 'src/app/services/modal.service';
 
@@ -53,10 +53,6 @@ export class ProfileComponent implements OnInit {
     if (storedUser) {
       this.user = JSON.parse(storedUser).displayName;
       this.userEmail = JSON.parse(storedUser).email;
-
-      console.log(this.user);
-      console.log(this.userEmail);
-      console.log(this.firstLetter);
 
       // to display the first letter of the userEmail.
       this.firstLetter = this.userEmail.charAt(0).toUpperCase();

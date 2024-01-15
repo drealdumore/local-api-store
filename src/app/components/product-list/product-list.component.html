@@ -1,5 +1,6 @@
 <ng-container *ngIf="products$ | async as products">
   <h2 class="">Deals for you</h2>
 
-  <product [products]="products" [loading]="loader"></product>
+  <product [products]="products"></product>
+  <!-- <product [products]="products" [loading]="loader"></product> -->
 </ng-container>

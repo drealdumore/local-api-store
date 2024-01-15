@@ -153,7 +153,7 @@
     <h2 class="review_top">Customer Reviews</h2>
     <div class="wrapper">
       <article *ngFor="let review of detail.reviews">
-        <div *ngIf="review; else template">
+        <div *ngIf="review.length > 1; else template">
           <div class="item">
             <star></star>
             <p class="date">{{ review.createdAt | date : "dd/MM/yy" }}</p>
@@ -173,7 +173,8 @@
       <div>
         <h2 class="review_top">Related Products</h2>
         <div class="wrapper" *ngIf="related$ | async as relatedData">
-          <product [products]="relatedData" [loading]="loading"></product>
+          <product [products]="relatedData"></product>
+          <!-- <product [products]="relatedData" [loading]="loading"></product> -->
         </div>
       </div>
     </main>
