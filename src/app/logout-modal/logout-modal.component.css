@@ -1,0 +1,75 @@
+.logout_confirm {
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 5px;
+  padding: 20px;
+  position: relative;
+}
+
+.flex-cancel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close_svg {
+  position: absolute;
+  right: 1rem;
+  top: 15px;
+  cursor: pointer;
+  background-color: var(--border-color);
+  border-radius: 50%;
+  padding: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: none;
+}
+
+.flex-cancel svg {
+  width: 36px;
+  height: 36px;
+}
+
+.button {
+  padding: 10px 2rem;
+  border: none;
+  background: transparent;
+  border-radius: 5px;
+  font-size: 17px;
+  font-weight: 500;
+  transition: all 0.4s ease;
+}
+
+.cancel_btn {
+  border: 1px solid var(--border-color);
+}
+
+.cancel_btn:hover {
+  background-color: var(--border-color);
+}
+
+.confirm_buttons {
+  display: flex;
+  gap: 2rem;
+  padding-top: 1rem;
+}
+
+.logout_btn {
+  background: var(--error);
+  color: var(--white);
+}
+
+.logout_btn:hover {
+  background-color: rgb(124 6 6);
+}
+
+.confirm_content {
+  font-size: 19px;
+  width: 413px;
+  font-weight: 500;
+  color: var(--black);
+  padding-bottom: 13px;
+}

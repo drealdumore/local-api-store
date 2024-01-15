@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -7,6 +12,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -41,16 +47,14 @@ export class LoginComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  
   get hasError(): boolean {
     return this.loginEmailMessage !== '' || this.loginPasswordMessage !== '';
   }
 
-  private authService = inject(AuthService)
+  private authService = inject(AuthService);
   private fb = inject(FormBuilder);
   private toastr = inject(ToastrService);
-
-  // constructor(private authService: AuthService) {}
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -117,7 +121,7 @@ export class LoginComponent implements OnInit {
       .login(formValue)
       .then((res: any) => {
         this.toastr.success('Sucessfully logged in');
-        console.log('Sucessfully logged in');
+        this.router.navigate(['/home']);
       })
       .catch((error: any) => {
         console.error(error);

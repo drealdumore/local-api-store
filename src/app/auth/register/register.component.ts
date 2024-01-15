@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -7,6 +12,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -48,6 +54,7 @@ export class RegisterComponent implements OnInit {
   private authService = inject(AuthService);
   private fb = inject(FormBuilder);
   private toastr = inject(ToastrService);
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -114,6 +121,7 @@ export class RegisterComponent implements OnInit {
       .register(formValue)
       .then((res: any) => {
         this.toastr.success('Sucessfully registered');
+        this.router.navigate(['/home']);
       })
       .catch((error: any) => {
         console.error(error);

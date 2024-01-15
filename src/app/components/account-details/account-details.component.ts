@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -6,8 +6,14 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './account-details.component.html',
-  styleUrls: ['./account-details.component.css']
+  styleUrls: ['./account-details.component.css'],
 })
 export class AccountDetailsComponent {
+  @Output() modalFn = new EventEmitter<any>();
+  @Input() userDetail: any[] = [];
+  @Input() firstLetter: string = ''
 
+  logout() {
+    this.modalFn.emit();
+  }
 }

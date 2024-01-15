@@ -17,12 +17,11 @@ import { HomeComponent } from './app/pages/home/home.component';
 import { ProductDetailGuard } from './app/components/product-detail.guard';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { AuthGuard } from './app/auth/auth.guard';
 
 if (environment.production) {
   enableProdMode();
 }
-
-
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -38,7 +37,12 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(withInterceptorsFromDi()),
     provideRouter(
       [
-        { path: 'home', component: HomeComponent, title: 'Home' },
+        {
+          path: 'home',
+          component: HomeComponent,
+          title: 'Home',
+          canActivate: [AuthGuard],
+        },
         {
           path: 'auth/login',
           title: 'Login',
@@ -59,7 +63,7 @@ bootstrapApplication(AppComponent, {
         {
           path: 'products/:id',
           title: 'Product Detail',
-          canActivate: [ProductDetailGuard],
+          canActivate: [ProductDetailGuard, AuthGuard],
           loadComponent: () =>
             import('./app/pages/product-detail/product-detail.component').then(
               (c) => c.ProductDetailComponent
@@ -68,6 +72,7 @@ bootstrapApplication(AppComponent, {
         {
           path: 'wishlist',
           title: 'Wishlist',
+          canActivate: [AuthGuard],
           loadComponent: () =>
             import('./app/pages/wishlist/wishlist.component').then(
               (c) => c.WishlistComponent
@@ -76,6 +81,7 @@ bootstrapApplication(AppComponent, {
         {
           path: 'profile',
           title: 'Profile',
+          canActivate: [AuthGuard],
           loadComponent: () =>
             import('./app/pages/profile/profile.component').then(
               (c) => c.ProfileComponent
@@ -84,6 +90,7 @@ bootstrapApplication(AppComponent, {
         {
           path: 'categories',
           title: 'Categories',
+          canActivate: [AuthGuard],
           loadComponent: () =>
             import('./app/pages/categories/categories.component').then(
               (c) => c.CategoriesComponent
@@ -92,6 +99,7 @@ bootstrapApplication(AppComponent, {
         {
           path: 'categories/:id',
           title: ' Detail',
+          canActivate: [AuthGuard],
           loadComponent: () =>
             import(
               './app/pages/categories-detail/categories-detail.component'
@@ -100,6 +108,7 @@ bootstrapApplication(AppComponent, {
         {
           path: 'cart',
           title: 'Cart',
+          canActivate: [AuthGuard],
           loadComponent: () =>
             import('./app/pages/cart/cart.component').then(
               (c) => c.CartComponent
@@ -123,7 +132,6 @@ bootstrapApplication(AppComponent, {
     ),
   ],
 }).catch((err) => console.error(err));
-
 
 // import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
@@ -153,8 +161,8 @@ bootstrapApplication(AppComponent, {
 //     importProvidersFrom(
 //       BrowserModule,
 //       BrowserAnimationsModule,
-      // provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-      // provideFirestore(() => getFirestore()),
+// provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+// provideFirestore(() => getFirestore()),
 //       ToastrModule.forRoot()
 //     ),
 //     provideHttpClient(withInterceptorsFromDi()),

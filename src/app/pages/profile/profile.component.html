@@ -19,10 +19,17 @@
   </div>
 
   <div class="active-component" *ngIf="isAccountDetail">
-    <account-details></account-details>
+    <account-details
+      (modalFn)="openModal()"
+      [firstLetter]="firstLetter"
+    ></account-details>
   </div>
 
   <div class="active-component" *ngIf="!isAccountDetail">
     <address-book></address-book>
   </div>
 </div>
+
+<modal *ngIf="modalService.modalState$ | async">
+  <logout-modal (logOutFn)="logout()"></logout-modal>
+</modal>

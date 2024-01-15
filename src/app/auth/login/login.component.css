@@ -84,6 +84,23 @@ form button:hover {
   transition: all 0.4s ease-in-out;
   outline: none;
 }
+/* 
+.email-input:user-invalid {
+  border: 1px solid var(--error);
+}
+
+.email-input:user-valid {
+  border: 1px solid var(--green-color);
+}
+
+label {
+  &:has(+ .email-input:user-valid):after {
+    content: "✔";
+  }
+  &:has(+ .email-input:user-invalid):after {
+    content: "❌";
+  }
+} */
 
 .password {
   display: flex;

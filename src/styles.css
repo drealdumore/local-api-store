@@ -7,7 +7,7 @@
   --black: #000;
   --white: #fff;
   --red: #a70d0d;
-  --color-error: rgb(157, 12, 12);
+  --error: rgb(157, 12, 12);
   --active-color: #b5d3b5;
   --grey: #71717a;
   --dark-grey: #52525b;
@@ -55,13 +55,13 @@ button:disabled:hover {
 
 .error-span svg path,
 .error-span svg circle {
-  stroke: var(--color-error);
+  stroke: var(--error);
 }
 
 .error-message {
   display: flex;
   align-items: center;
-  color: var(--color-error);
+  color: var(--error);
   font-size: 17px;
   gap: 5px;
   width: max-content;

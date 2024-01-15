@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
-  selector: 'app-modal',
+  selector: 'modal',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './modal.component.html',
