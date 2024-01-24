@@ -39,3 +39,17 @@ div:focus-within {
   border: 1.5px solid var(--dark-grey);
   /* border: 3px double var(--dark-grey); */
 }
+
+
+@media screen and (max-width: 922px) {
+  div {
+    height: 1.7rem;
+  
+width: 74vw;
+  }
+
+  form svg {
+    height: 20px;
+  width: 20px;
+  }
+}

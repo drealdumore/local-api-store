@@ -1,10 +1,6 @@
 <div class="products">
   <ng-container *ngIf="loading; else content">
-    <article
-      class="product-skeleton"
-      
-      *ngFor="let product of products"
-    >
+    <article class="product-skeleton" *ngFor="let product of products">
       <div class="product_img">
         <div class="skeleton-loader__image"></div>
       </div>
@@ -29,7 +25,8 @@
 
   <ng-template #content>
     <article class="product" @fadeInOut *ngFor="let product of products">
-      <a href="/products/" [routerLink]="['/products', product.id]">
+      <!-- <a href="/products/" [routerLink]="['/products', product.id]"> -->
+      <a (click)="routeToDetail(product.id)">
         <div class="product_img">
           <img
             [src]="
@@ -42,15 +39,13 @@
           <h3 class="product_name">{{ product.name }}</h3>
           <div class="product_price">
             <h3>
-              <span class="naira">₦</span>
-              {{ product.highPrice | number }}
+              {{ product.highPrice | currency }}
             </h3>
             <h3 class="slash_price" *ngIf="product.discountedLowPrice">
-              <span class="naira">₦</span>
-              {{ product.discountedLowPrice | number }}
+              {{ product.discountedLowPrice | currency }}
             </h3>
           </div>
-          <div class="button">
+          <div class="button" (click)="addToCart($event, product.id, product.name, product.colour[0].colour)">
             <button class="add_btn">Add to cart</button>
           </div>
         </div>

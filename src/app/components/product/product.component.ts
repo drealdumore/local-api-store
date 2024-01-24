@@ -6,9 +6,11 @@ import {
   trigger,
 } from '@angular/animations';
 import { CommonModule, NgIf } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { IProduct } from 'src/app/interfaces/product';
+import { Component, Input, inject } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { IProduct } from 'src/app/interfaces/product.interface';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'product',
@@ -25,30 +27,28 @@ import { IProduct } from 'src/app/interfaces/product';
     ]),
   ],
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent {
   @Input() products: IProduct[] = [];
-  loading: boolean = true;
-  // @Input() loading: boolean = true;
+  loading: boolean = false;
 
-  constructor() {
-    if (this.products.length > 1) {
-      this.loading = false;
-    }
+  private router = inject(Router);
+  private cartService = inject(CartService);
+  private toastr = inject(ToastrService);
+
+  routeToDetail(id: string): void {
+    this.router.navigate(['/products', id]);
   }
 
-  ngOnInit(): void {
-    // console.log(this.products);
-    console.log(this.products.length);
-    if (this.products.length > 1) {
-      this.loading = false;
-    }
-  }
-
-  addToCart(event: Event): void {
-    // Perform your 'Add to cart' logic here
+  addToCart(event: Event, id: string, name: string, colour: string): void {
+    this.cartService.addToCart(id, name, colour).subscribe(
+      (data) => {
+        console.log('Item added to cart:', data);
+        this.toastr.success('Added to cart')
+      },
+      (error) => this.toastr.error(error)
+    );
 
     // Stop the event propagation
     event.stopPropagation();
-    console.log('red');
   }
 }

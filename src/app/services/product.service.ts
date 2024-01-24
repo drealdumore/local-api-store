@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
-import { IProductResponse } from '../interfaces/product';
+import { catchError, map, shareReplay, tap } from 'rxjs/operators';
+import { IProduct, IProductResponse } from '../interfaces/product.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -13,45 +13,45 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   products$ = this.http.get<IProductResponse>(`${this.url}/product`).pipe(
-    // tap((data) => console.log('products:', JSON.stringify(data))),
-    // tap((data) => console.log('products:', data.data.data)),
     map((products) => products.data.data),
+    shareReplay(1),
     catchError(this.handleError)
   );
 
-  product$ = this.products$.pipe(
-    map((products) =>
-      products.find((product) => product.id === '5f3441ae5e39c50017cdeee5')
-    ),
-    tap((product) => console.log('pro :', product)),
-    catchError(this.handleError)
-  );
+  // products = toSignal(this.products$)
+  products = signal(2);
+
+  findProducts(id: string): Observable<IProduct | undefined> {
+    return this.products$.pipe(
+      map((products) => products.find((product) => product.id === id)),
+      tap((product) => console.log('pro :', product)),
+      catchError(this.handleError)
+    );
+  }
 
   getProduct(id: string): Observable<any> {
     const productUrl = `${this.url}/product/${id}`;
-
     return this.http.get<any>(productUrl).pipe(
-      map((data) => data),
+      map((data) => data.data.data),
+      shareReplay(1),
       catchError(this.handleError)
     );
   }
 
-  getRelatedProducts(id: string): Observable<any> {
+  getRelatedProducts(id: string): Observable<IProduct[]> {
     const productUrl = `${this.url}/product/related/${id}`;
-
-    return this.http.get<any>(productUrl).pipe(
-      tap((data) => console.log(data)),
+    return this.http.get<IProductResponse>(productUrl).pipe(
       map((product) => product.data.data),
+      shareReplay(1),
       catchError(this.handleError)
     );
   }
 
-  searchProducts(query: string): Observable<any> {
+  searchProducts(query: string): Observable<IProduct[]> {
     const productUrl = `${this.url}/product/search?search=${query}`;
-
-    return this.http.get<any>(productUrl).pipe(
+    return this.http.get<IProductResponse>(productUrl).pipe(
       tap((data) => console.log(data)),
-      map((product) => product.data.data),
+      map((product: IProductResponse) => product.data.data),
       catchError(this.handleError)
     );
   }

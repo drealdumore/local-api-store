@@ -17,7 +17,7 @@ export class CartComponent implements OnInit {
     private titleService: Title,
     private productService: ProductService
   ) {}
-  
+
   products$ = this.productService.searchProducts('bag');
 
   ngOnInit(): void {

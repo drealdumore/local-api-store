@@ -1,7 +1,6 @@
 <div class="header">
   <search></search>
-  <div class="cart">
-    
+  <div class="cart" [routerLink]="['/cart']">
     <div class="border">
       <svg
         width="24"
@@ -30,7 +29,7 @@
           stroke-linecap="round"
         />
       </svg>
-      <span>0</span>
+      <span>{{cartCount()}}</span>
     </div>
   </div>
 </div>

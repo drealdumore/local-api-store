@@ -12,7 +12,7 @@ import { tap, catchError, EMPTY, Observable, map } from 'rxjs';
 import { BackBtnComponent } from 'src/app/components/back-btn/back-btn.component';
 import { ProductComponent } from 'src/app/components/product/product.component';
 import { StarComponent } from 'src/app/components/star/star.component';
-import { IProduct } from 'src/app/interfaces/product';
+import { IProduct } from 'src/app/interfaces/product.interface';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -23,44 +23,78 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product-detail.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
 export class ProductDetailComponent implements OnInit {
+  mainImageUrl: string = '';
   constructor(private productService: ProductService) {}
 
   detail$: Observable<any> | undefined;
   related$: Observable<any> | undefined;
   loading: boolean = false;
+  materialActive: boolean = false;
+  modelActive: boolean = false;
+  descriptionActive: boolean = true;
+  activeImage: string | null = null;
 
   @Input() id = '';
 
   ngOnInit(): void {
     if (this.id) {
       this.detail$ = this.productService.getProduct(this.id).pipe(
-        map((data) => data.data.data),
-
         catchError(() => {
           return EMPTY;
         })
       );
 
-      // this.related$ = this.productService.getRelatedProducts(this.id).pipe(
-      //   tap((data) => console.log(data)),
-      //   map((data) => data.data.data),
-
-      //   catchError(() => {
-      //     return EMPTY;
-      //   })
-      // );
-
-      // Inside ProductDetailComponent
-this.related$ = this.productService.getRelatedProducts(this.id).pipe(
-  tap((data) => console.log('Related Products:', data)),
-  map((data) => data.data.data),
-  catchError(() => EMPTY)
-);
-
+      this.related$ = this.productService.getRelatedProducts(this.id).pipe(
+        catchError(() => {
+          return EMPTY;
+        })
+      );
     }
   }
+
+  changeMainImage(img: string): boolean {
+    this.activeImage = img;
+    this.mainImageUrl = 'http://localhost:5500/img/products/800x800_' + img;
+    return true; // Return true to indicate the image is active
+  }
+
+  isActiveImage(img: string): boolean {
+    return this.activeImage === img;
+  }
+
+  get detail(): any {
+    return this.detail$;
+  }
+
+  changeMainImageByColor(color: string): void {
+    // Ensure that detail is not undefined or null
+    if (this.detail && this.detail.colour) {
+      // Find the corresponding color in the detail object
+      const selectedColor = this.detail.colour.find(
+        (c: any) => c.colour === color
+      );
+      console.log(selectedColor);
+      if (selectedColor) {
+        // Update the main image based on the selected color
+        this.mainImageUrl =
+          'http://localhost:5500/img/products/800x800_' +
+          (selectedColor.colourImage || this.detail.imageCover);
+      }
+    }
+  }
+
+  //   changeMainImageByColor(color: string): void {
+  //   const selectedColor = this.detail?.colour.find((c: any) => c.colour === color);
+
+  //   if (selectedColor) {
+  //     // Log the selected color to ensure it's being found
+  //     console.log('Selected Color:', selectedColor);
+
+  //     // Update the main image based on the selected color
+  //     this.mainImageUrl = 'http://localhost:5500/img/products/800x800_' + (selectedColor.colourImage || this.detail?.imageCover);
+  //   }
+  // }
 
   extractName(fullName: string): string {
     // Split the full name into individual words

@@ -1,3 +1,18 @@
-.container {
+.wrapper {
   padding: 2rem 0;
+  height: 100vh;
+}
+
+
+h2 {
+  text-transform: capitalize;
+}
+
+
+
+@media screen and (max-width: 480px) {
+ .wrapper {
+  padding:  0;
+}
+
 }

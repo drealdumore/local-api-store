@@ -21,8 +21,7 @@
   <div class="active-component" *ngIf="isAccountDetail">
     <account-details
       (modalFn)="openModal()"
-      [firstLetter]="firstLetter"
-      [userEmail]="userEmail"
+      [userDetail]="userDetail"
     ></account-details>
   </div>
 
@@ -34,3 +33,9 @@
 <modal *ngIf="modalService.modalState$ | async">
   <logout-modal (logOutFn)="logout()"></logout-modal>
 </modal>
+
+<!-- <modal *ngIf="(modalService.modalState$ | async) || isChangePassword">
+  <change-password-modal></change-password-modal>
+</modal> -->
+
+<!-- <change-password-modal (logOutFn)="logout()"></change-password-modal> -->

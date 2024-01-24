@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { NavComponent } from './components/nav/nav.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RouterModule } from '@angular/router';
-import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app',
@@ -12,11 +11,20 @@ import { Firestore, addDoc, collection } from '@angular/fire/firestore';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit{
-  constructor(private fireStore: Firestore) {}
+export class AppComponent implements OnInit {
+  isLoggedIn: boolean = false;
 
   ngOnInit(): void {
-    // const testCollection = collection(this.fireStore, 'test');
-    // addDoc(testCollection, {text: "i love firebase"})
+    // Check if the user is logged in
+    this.isLoggedIn = this.checkLoginStatus();
+  }
+
+  private checkLoginStatus(): boolean {
+    // Retrieve user data from local storage
+    const userToken = localStorage.getItem('userToken');
+    const userData = localStorage.getItem('userData');
+
+    // Check if both token and user data exist
+    return !!userToken && !!userData;
   }
 }

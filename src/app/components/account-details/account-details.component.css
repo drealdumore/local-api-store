@@ -11,7 +11,7 @@
 }
 
 .avatar {
-  background: var(--green-color);
+  background: var(--black);
   border-radius: 50%;
   height: 6rem;
   width: 6rem;
@@ -104,6 +104,11 @@ svg path {
   stroke: var(--green-color);
 }
 
+.pending_svg path,
+.pending_svg circle {
+  stroke: var(--error); 
+}
+
 .veridate p {
   text-transform: capitalize;
   font-size: 14px;
@@ -163,7 +168,7 @@ svg path {
   right: 0%;
   width: 0%;
   opacity: 0;
-  color: var(--light-grey);
+  color: var(--white);
   font-size: 1.2em;
   font-weight: 600;
   transition-duration: 0.3s;
@@ -190,4 +195,60 @@ svg path {
 /* button click effect*/
 .Btn:active {
   transform: translate(2px, 2px);
+}
+
+
+
+@media screen and (max-width: 922px) {
+.wrapper{
+  width: 92vw;
+}
+
+.accout {
+  width: 92vw;
+}
+
+.avatar {
+  height: 5rem;
+  width: 5rem;
+}
+
+.Btn {
+  height: 38px;
+
+}
+.Btn:hover {
+  width: 115px;
+}
+
+.Btn:hover .sign {
+  width: 25%;
+}
+
+.Btn:hover .text {
+  width: 60%;
+}
+
+form {
+  width: 100%;
+  padding-bottom: 5px;
+}
+
+.input label  {
+  font-size: 16px;
+}
+
+.input input {
+  width: 92%;
+  font-size: 15px;
+}
+
+.mailpassbox {
+  width: 100%;
+}
+
+.email-box {
+  width: 92%;
+}
+
 }

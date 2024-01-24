@@ -5,6 +5,7 @@
   padding: 8px 3rem;
   border-bottom: 1px solid var(--border-color);
   gap: 10px;
+  width: 92vw;
 }
 
 .cart {
@@ -50,4 +51,22 @@
 svg {
   height: 32px;
   width: 32px;
+}
+
+
+@media screen and (max-width: 922px) {
+  .header{
+    padding: 8px 1rem;
+    width: 92vw;
+  }
+
+  .border {
+    padding: 7px;
+  }
+
+  svg {
+  height: 28px;
+  width: 28px;
+}
+
 }

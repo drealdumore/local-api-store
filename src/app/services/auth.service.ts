@@ -1,62 +1,121 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { GoogleAuthProvider, User } from 'firebase/auth';
-
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, catchError, tap, throwError } from 'rxjs';
+import { LoginResponse } from '../interfaces/login.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  isAuthenticated$: Observable<boolean>;
-  private user: User | null = null;
+  isAuthenticated$: Observable<boolean> | undefined;
 
-  constructor(private afs: AngularFireAuth) {
-    this.isAuthenticated$ = this.afs.authState.pipe(map((user) => !!user));
-    this.afs.authState.subscribe((user: firebase.default.User | null) => {
-      if (user) {
-        this.user = user as import('@firebase/auth/dist/auth-public').User;
-        localStorage.setItem('user', JSON.stringify(this.user));
-      } else {
-        this.user = null;
-        localStorage.removeItem('user');
-      }
-    });
-  }
+  private url = 'http://localhost:5500/api/v1/user';
 
-  signInWithGoogle() {
-    return this.afs.signInWithPopup(new GoogleAuthProvider());
-  }
+  constructor(private http: HttpClient) {}
 
-  register(user: { email: string; password: string }) {
-    return this.afs.createUserWithEmailAndPassword(user.email, user.password);
-  }
+  register(
+    name: string,
+    email: string,
+    password: string,
+    passwordConfirm: string
+  ): Observable<any> {
+    const apiUrl = `${this.url}/signup`;
 
-  login(user: { email: string; password: string }) {
-    return this.afs.signInWithEmailAndPassword(user.email, user.password);
-  }
-
-  logOut() {
-    return this.afs.signOut();
-  }
-
-  getUser(): User | null {
-    return this.user;
-  }
-
-  setDisplayName(displayName: string): Promise<void> {
-    return this.afs.currentUser
-      .then((user) => {
-        if (user) {
-          return user.updateProfile({ displayName });
+    const requestBody = { name, email, password, passwordConfirm };
+    return this.http.post<LoginResponse>(apiUrl, requestBody).pipe(
+      tap((response) => {
+        if (response && response.token) {
+          // Save user data to local storage
+          localStorage.setItem('userToken', response.token);
+          localStorage.setItem('userData', JSON.stringify(response.data));
         } else {
-          throw new Error('User not logged in.');
+          localStorage.removeItem('userToken');
+          localStorage.removeItem('userData');
         }
-      })
-      .catch((error) => {
-        console.error('Error setting display name:', error);
+      }),
+      catchError((error) => {
+        this.handleError(error);
         throw error;
-      });
+      })
+    );
+  }
+
+  login(email: string, password: string): Observable<any> {
+    const apiUrl = `${this.url}/login`;
+
+    const requestBody = { email, password };
+    return this.http.post<LoginResponse>(apiUrl, requestBody).pipe(
+      tap((response) => {
+        if (response && response.token) {
+          // Save user data to local storage
+          localStorage.setItem('userToken', response.token);
+          localStorage.setItem('userData', JSON.stringify(response.data));
+        } else {
+          localStorage.removeItem('userToken');
+          localStorage.removeItem('userData');
+        }
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  forgotPassword(email: string): Observable<any> {
+    const apiUrl = `${this.url}/forgotPassword`;
+
+    const requestBody = { email };
+
+    return this.http.post<any>(apiUrl, requestBody).pipe(
+      tap((data) => console.log(data)),
+      catchError(this.handleError)
+    );
+  }
+
+  resetPassword(password: string, passwordConfirm: string): Observable<any> {
+    const apiUrl = `${this.url}/resetPassword/:token`;
+
+    const requestBody = { password, passwordConfirm };
+
+    return this.http.post<any>(apiUrl, requestBody).pipe(
+      tap((data) => console.log(data)),
+      catchError(this.handleError)
+    );
+  }
+
+  changePassword(
+    passwordCurrent: string,
+    password: string,
+    passwordConfirm: string
+  ): Observable<any> {
+    const apiUrl = `${this.url}/updateMyPassword`;
+
+    const requestBody = { passwordCurrent, password, passwordConfirm };
+
+    return this.http.patch<any>(apiUrl, requestBody).pipe(
+      tap((data) => console.log(data)),
+      catchError(this.handleError)
+    );
+  }
+
+  logOut(): Observable<any> {
+    const apiUrl = `${this.url}/logout`;
+
+    return this.http.get<any>(apiUrl).pipe(catchError(this.handleError));
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was:`,
+        error.error
+      );
+    }
+
+    // Return an observable with a user-facing error message.
+    return throwError('Something bad happened; please try again later.');
   }
 }

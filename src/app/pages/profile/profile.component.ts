@@ -15,6 +15,7 @@ import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { LogoutModalComponent } from 'src/app/components/logout-modal/logout-modal.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { ModalService } from 'src/app/services/modal.service';
+import { ChangePasswordComponent } from 'src/app/components/change-password/change-password.component';
 
 @Component({
   selector: 'app-profile',
@@ -25,6 +26,7 @@ import { ModalService } from 'src/app/services/modal.service';
     AccountDetailsComponent,
     BackBtnComponent,
     LogoutModalComponent,
+    ChangePasswordComponent,
     ModalComponent,
   ],
   templateUrl: './profile.component.html',
@@ -33,10 +35,8 @@ import { ModalService } from 'src/app/services/modal.service';
 })
 export class ProfileComponent implements OnInit {
   isAccountDetail: boolean = true;
-
-  user: string = '';
-  userEmail: string = '';
-  firstLetter: string = '';
+  isChangePassword: boolean = false;
+  userDetail: any;
 
   private authService = inject(AuthService);
   private toastr = inject(ToastrService);
@@ -49,13 +49,9 @@ export class ProfileComponent implements OnInit {
     this.titleService.setTitle('Swiftcart | Profile');
 
     // Retrieve user information from local storage if available
-    const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem('userData');
     if (storedUser) {
-      this.user = JSON.parse(storedUser).displayName;
-      this.userEmail = JSON.parse(storedUser).email;
-
-      // to display the first letter of the userEmail.
-      this.firstLetter = this.userEmail.charAt(0).toUpperCase();
+      this.userDetail = JSON.parse(storedUser).user;
     }
   }
 
@@ -64,14 +60,14 @@ export class ProfileComponent implements OnInit {
   }
 
   logout() {
-    this.authService
-      .logOut()
-      .then((res: any) => {
+    this.authService.logOut().subscribe(
+      (response) => {
         this.toastr.success('Successfully Logged Out.');
         this.router.navigate(['/auth/login']);
-      })
-      .catch((error: any) => {
+      },
+      (error) => {
         this.toastr.error('error');
-      });
+      }
+    );
   }
 }

@@ -25,8 +25,10 @@ main {
   justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
-  height: clamp(32rem, 80%, 87vh);
+  height: clamp(22rem, 80%, 87vh);
+  /* height: clamp(32rem, 80%, 87vh); */
   padding-bottom: 2rem;
+  /* height: 17.7%; */
 }
 
 .navigation {
@@ -57,4 +59,16 @@ main {
     grid-row: main-start/ main-end;
     grid-column: auto;
   }
+}
+
+
+
+
+@media screen and (max-width: 922px) {
+  .container{
+    padding: 0;
+    width: 97vw;
+  }
+
+
 }

@@ -67,3 +67,27 @@ form {
   text-transform: capitalize;
   transition: all 0.4s ease-in-out;
 }
+
+
+
+@media screen and (max-width: 922px) {
+  .wrapper {
+    width: 92vw;
+  }
+
+form {
+  width: 100%;
+}
+  .input {
+    width: 92%;
+  }
+
+  .input label  {
+  font-size: 16px;
+}
+
+.input input {
+  font-size: 15px;
+}
+
+}

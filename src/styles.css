@@ -131,3 +131,13 @@ button:disabled {
 svg path {
   stroke: var(--black);
 }
+
+
+@media screen and (max-width: 922px) {
+ .page_title {
+  margin: 0;
+  padding: 8px 0;
+  font-size: 1.7rem;
+
+ }
+}

@@ -5,21 +5,25 @@
     <div class="wrapper flex">
       <div class="imgs flex">
         <div class="main_img">
-          <img
-            [src]="
-              'http://localhost:5500/img/products/800x800_' + detail.imageCover
-            "
-            [alt]="detail.name"
-          />
+          <img [src]="mainImageUrl || 'http://localhost:5500/img/products/800x800_' + detail.imageCover" [alt]="detail.name" />
+          
         </div>
+
         <div class="img_sub">
-          <div class="sub_img" *ngFor="let img of detail.images">
-            <img
-              [src]="'http://localhost:5500/img/products/800x800_' + img"
-              [alt]="detail.name"
-            />
-          </div>
-        </div>
+  <div class="sub_img" *ngFor="let img of detail.images">
+    <div
+      
+      (click)="changeMainImage(img)"
+    >
+      <img
+        [src]="'http://localhost:5500/img/products/800x800_' + img"
+        [alt]="detail.name"
+        [class.active_img]="isActiveImage(img)"
+      />
+    </div>
+  </div>
+</div>
+
       </div>
 
       <div class="detail">
@@ -43,9 +47,12 @@
         <div>
           <p class="select_p category_name">Select colors</p>
           <div class="colors">
-            <button *ngFor="let color of detail.colour">
+            <button *ngFor="let color of detail.colour" (click)="changeMainImageByColor(color.colour)">
               {{ color.colour }}
             </button>
+            <!-- <button *ngFor="let color of detail.colour">
+              {{ color.colour }}
+            </button> -->
           </div>
         </div>
 
@@ -102,70 +109,76 @@
           <button class="button cart">add to cart</button>
         </div>
 
-        <div class="tabs">
-          <div class="tab-2">
-            <label for="tab2-1">Description</label>
-            <input id="tab2-1" name="tabs-two" type="radio" checked="checked" />
-            <div style="width: 22rem; text-align: justify">
-              <p>
-                {{ detail.description }}
-              </p>
-            </div>
-          </div>
-          <div class="tab-2">
-            <label for="tab2-2">Model</label>
-            <input id="tab2-2" name="tabs-two" type="radio" />
-            <div
-              style="
-                width: 21rem;
-                text-align: justify;
-                margin: 0;
-                right: 4.1rem;
-                position: absolute;
+        <div class="description_tabs">
+          <div class="headings">
+            <p
+              (click)="
+                descriptionActive = true;
+                modelActive = false;
+                materialActive = false
               "
+              [class.active]="descriptionActive"
             >
-              <p>
-                {{ detail.specification.model }}
-              </p>
-            </div>
-          </div>
-          <div class="tab-2">
-            <label for="tab2-3">Material</label>
-            <input id="tab2-3" name="tabs-two" type="radio" />
-            <div
-              style="
-                width: 22rem;
-                text-align: justify;
-                margin: 0;
-                right: 3.5rem;
-                position: absolute;
+              Description
+            </p>
+            <p
+              (click)="
+                modelActive = true;
+                descriptionActive = false;
+                materialActive = false
               "
+              [class.active]="modelActive"
             >
-              <p>
-                {{ detail.specification.material }}
-              </p>
-            </div>
+              Model
+            </p>
+            <p
+              (click)="
+                materialActive = true;
+                descriptionActive = false;
+                modelActive = false
+              "
+              [class.active]="materialActive"
+            >
+              Material
+            </p>
+          </div>
+
+          <div class="tab" *ngIf="descriptionActive">
+            <p class="details">{{ detail.description }}</p>
+          </div>
+
+          <div class="tab" *ngIf="modelActive">
+            <p class="details">{{ detail.specification.model }}</p>
+          </div>
+
+          <div class="tab" *ngIf="materialActive">
+            <p class="details">{{ detail.specification.material }}</p>
           </div>
         </div>
       </div>
     </div>
 
     <h2 class="review_top">Customer Reviews</h2>
-    <div class="wrapper">
-      <article *ngFor="let review of detail.reviews">
-        <div *ngIf="review.length > 1; else template">
-          <div class="item">
-            <star></star>
-            <p class="date">{{ review.createdAt | date : "dd/MM/yy" }}</p>
+    <div class="box">
+      <ng-container *ngIf="detail.reviews.length > 0; else noReviewsTemplate">
+        <article *ngFor="let review of detail.reviews">
+          <div>
+            <div class="item">
+              <star></star>
+              <p class="date">{{ review.createdAt | date : "dd/MM/yy" }}</p>
+            </div>
+            <div class="review_content">
+              <h2>{{ extractName(review.user.name) }}</h2>
+              <p>{{ review.review }}</p>
+            </div>
           </div>
-          <div class="review_content">
-            <h2>{{ extractName(review.user.name) }}</h2>
-            <p>{{ review.review }}</p>
-          </div>
+        </article>
+      </ng-container>
+      <ng-template #noReviewsTemplate>
+        <div class="no_review">
+          <img src="/assets/icons/review.svg" alt="" />
+          <p>No reviews yet</p>
         </div>
-      </article>
-      <ng-template #template>
-        <h2>No reviews yet</h2>
       </ng-template>
     </div>
 
@@ -174,7 +187,6 @@
         <h2 class="review_top">Related Products</h2>
         <div class="wrapper" *ngIf="related$ | async as relatedData">
           <product [products]="relatedData"></product>
-          <!-- <product [products]="relatedData" [loading]="loading"></product> -->
         </div>
       </div>
     </main>

@@ -148,3 +148,41 @@ main {
   width: 100%;
   padding: 8px 12px;
 }
+
+
+
+@media screen and (max-width: 480px) {
+.products {
+  padding: 0 12px;
+  padding-bottom: 2rem;
+  justify-content: left;
+}
+
+  .product,
+.product-skeleton {
+  width: 13rem;
+  height: 15rem;
+  padding: 13px 0px;
+}
+
+
+.product_img img,
+.skeleton-loader__image {
+  width: 9rem;
+}
+
+
+
+.product_price,
+.skeleton-loader__price {
+ font-size: 0.7rem;
+}
+
+
+.slash_price {
+  font-size: small;
+}
+
+
+
+}

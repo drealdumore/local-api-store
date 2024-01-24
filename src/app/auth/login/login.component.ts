@@ -69,6 +69,11 @@ export class LoginComponent implements OnInit {
       ],
     });
 
+    this.loginForm.setValue ({
+      email: 'jtimothy418@gmail.com',
+      password: 'jtl2020$'
+    })
+
     this.subscribeToPasswordChanges(this.loginForm);
     this.subscribeToEmailChanges(this.loginForm);
   }
@@ -111,21 +116,18 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  loginWithEmail() {
-    const formValue = Object.assign(this.loginForm.value, {
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password,
-    });
+  loginWithEmail(): void {
+    const email = 'jtimothy418@gmail.com';
+    const password = 'jtl2020$';
 
-    this.authService
-      .login(formValue)
-      .then((res: any) => {
+    this.authService.login(email, password).subscribe(
+      (response) => {
+        console.log('POST request successful:', response);
         this.toastr.success('Sucessfully logged in');
         this.router.navigate(['/home']);
-      })
-      .catch((error: any) => {
-        console.error(error);
-
+      },
+      (error) => {
+        console.error('POST request failed:', error);
         if (error.code === 'auth/user-not-found') {
           this.errorMessage =
             'User not found. Please check your email or sign up for an account.';
@@ -143,6 +145,7 @@ export class LoginComponent implements OnInit {
         }
 
         this.toastr.error(this.errorMessage);
-      });
+      }
+    );
   }
 }

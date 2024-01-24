@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { EMPTY, catchError, tap } from 'rxjs';
 import { ProductService } from 'src/app/services/product.service';
 import { ProductComponent } from '../product/product.component';
@@ -12,18 +12,21 @@ import { ProductComponent } from '../product/product.component';
   styleUrls: ['./product-list.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
   errorMessage: string = '';
-  loader: boolean = false;
+  loading: boolean = true;
 
   constructor(private productService: ProductService) {}
 
   products$ = this.productService.products$.pipe(
-    
-    tap(() => (this.loader = false)),
+    tap(() => (this.loading = false)),
     catchError((err) => {
       this.errorMessage = err;
       return EMPTY;
     })
   );
+
+  ngOnInit(): void {
+    this.loading = true;
+  }
 }

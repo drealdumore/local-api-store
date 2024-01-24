@@ -16,5 +16,10 @@
 
       <button>checkout</button>
     </div>
+
+    <select [ngModel]="quantity()" (change)="onQuantitySelected($any($event.target).value)">
+    <option disabled>select a quantity</option>
+    <option *ngFor="let q of qtyAvaliable()">{{q}}</option>
+    </select>
   </div>
 </div>

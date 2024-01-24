@@ -19,23 +19,22 @@ import { ToastrService } from 'ngx-toastr';
 import { debounceTime } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
-const passwordMatchValidator: ValidatorFn = (
-  control: AbstractControl
-): ValidationErrors | null => {
-  const password = control.get('password')?.value;
-  const confirmPassword = control.get('confirmPassword')?.value;
+export function passwordMatcher(
+  c: AbstractControl
+): { [key: string]: boolean } | null {
+  const password = c.get('password')?.value;
+  const passwordConfirm = c.get('passwordConfirm')?.value;
 
-  return password === confirmPassword ? null : { passwordMismatch: true };
-};
-
-const noSpaceValidator: ValidatorFn = (
-  control: AbstractControl
-): ValidationErrors | null => {
-  if (control.value && control.value.trim().includes(' ')) {
-    return { noSpace: true };
+  if (password.pristine === passwordConfirm) {
+    return null;
   }
-  return null;
-};
+
+  if (password === passwordConfirm) {
+    return null;
+  }
+
+  return { match: true };
+}
 
 @Component({
   selector: 'register',
@@ -49,10 +48,11 @@ export class RegisterComponent implements OnInit {
   showPassword: boolean = false;
   registerForm!: FormGroup;
   errorMessage: string = '';
+
   PasswordMessage: string = '';
   PasswordMatchMessage: string = '';
   EmailMessage: string = '';
-  NicknameMessage: string = '';
+  nameMessage: string = '';
 
   passwordValidationMessages: { [key: string]: string } = {
     required: 'Password is required.',
@@ -65,9 +65,8 @@ export class RegisterComponent implements OnInit {
     email: 'Please enter a valid email address.',
   };
 
-  nicknameValidationMessages: { [key: string]: string } = {
-    required: 'Nickname is required.',
-    maxlength: 'Nickname cannot be more than 10 characters long.',
+  nameValidationMessages: { [key: string]: string } = {
+    required: 'Name is required.',
   };
 
   togglePasswordVisibility() {
@@ -75,7 +74,12 @@ export class RegisterComponent implements OnInit {
   }
 
   get hasError(): boolean {
-    return this.EmailMessage !== '' || this.PasswordMessage !== '';
+    return (
+      this.nameMessage !== '' ||
+      this.EmailMessage !== '' ||
+      this.PasswordMessage !== '' ||
+      this.PasswordMatchMessage !== ''
+    );
   }
 
   private authService = inject(AuthService);
@@ -84,46 +88,35 @@ export class RegisterComponent implements OnInit {
   private router = inject(Router);
 
   ngOnInit(): void {
+    localStorage.removeItem('user');
+
     this.registerForm = this.fb.group({
+      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      nickName: [
-        '',
-        [Validators.required, Validators.maxLength(10), noSpaceValidator],
-      ],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(12),
-        ],
-      ],
+      passwordGroup: this.fb.group(
+        {
+          password: [
+            '',
+            [
+              Validators.required,
+              Validators.minLength(3),
+              Validators.maxLength(12),
+            ],
+          ],
+          passwordConfirm: ['', Validators.required],
+        },
+        { validator: passwordMatcher }
+      ),
     });
 
     this.subscribeToPasswordChanges(this.registerForm);
     this.subscribeToEmailChanges(this.registerForm);
-    this.subscribeToNicknameChanges(this.registerForm);
     this.subscribeToPasswordMatchChanges(this.registerForm);
+    this.subscribeToNameChanges(this.registerForm);
   }
 
-  get nickName(): AbstractControl | null {
-    return this.registerForm.get('nickName');
-  }
-
-  setNickname() {
-    const newNickname = this.registerForm.get('nickName')?.value;
-
-    if (this.registerForm.get('nickName')?.valid && newNickname.trim() !== '') {
-      this.authService
-        .setDisplayName(newNickname)
-        .then(() => {
-          console.log('Display name set successfully');
-          console.log(newNickname);
-        })
-        .catch((error) => {
-          console.error('Error setting display name:', error);
-        });
-    }
+  get name(): AbstractControl | null {
+    return this.registerForm.get('name');
   }
 
   private setPasswordMessage(c: AbstractControl): void {
@@ -136,16 +129,16 @@ export class RegisterComponent implements OnInit {
   }
 
   private setPasswordMatchMessage(c: AbstractControl): void {
-    const passwordControl = this.registerForm.get('password');
-    const passwordMatchControl = this.registerForm.get('confirmPassword');
+    const passwordControl = this.registerForm.get('passwordGroup.password');
+    const passwordMatchControl = this.registerForm.get(
+      'passwordGroup.passwordConfirm'
+    );
 
     const match = passwordControl?.value === passwordMatchControl?.value;
 
     this.PasswordMatchMessage = '';
     if ((c.touched || c.dirty) && c.errors) {
-      this.PasswordMatchMessage = this.PasswordMatchMessage = match
-        ? ''
-        : 'Passwords do not match';
+      this.PasswordMatchMessage = match ? '' : 'Passwords do not match';
       console.log('Passwords do not match');
     }
   }
@@ -159,34 +152,21 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  private setNickNameMessage(c: AbstractControl): void {
-    this.NicknameMessage = '';
+  private setNameMessage(c: AbstractControl): void {
+    this.nameMessage = '';
     if ((c.touched || c.dirty) && c.errors) {
-      this.NicknameMessage = Object.keys(c.errors)
-        .map((key) => this.nicknameValidationMessages[key])
+      this.nameMessage = Object.keys(c.errors)
+        .map((key) => this.nameValidationMessages[key])
         .join(' ');
     }
   }
 
-  private subscribeToPasswordChanges(form: FormGroup): void {
-    const passwordControl = form.get('password');
-    if (passwordControl) {
-      passwordControl.valueChanges
-        .pipe(debounceTime(200))
-        .subscribe((value) => {
-          this.setPasswordMessage(passwordControl);
-        });
-    }
-  }
-
-  private subscribeToPasswordMatchChanges(form: FormGroup): void {
-    const passwordMatchControl = form.get('confirmPassword');
-    if (passwordMatchControl) {
-      passwordMatchControl.valueChanges
-        .pipe(debounceTime(200))
-        .subscribe(() => {
-          this.setPasswordMatchMessage(passwordMatchControl);
-        });
+  private subscribeToNameChanges(form: FormGroup): void {
+    const nameControl = form.get('name');
+    if (nameControl) {
+      nameControl.valueChanges.pipe(debounceTime(200)).subscribe(() => {
+        this.setNameMessage(nameControl);
+      });
     }
   }
 
@@ -199,77 +179,45 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  private subscribeToNicknameChanges(form: FormGroup): void {
-    const nickNameControl = form.get('nickName');
-    if (nickNameControl) {
-      nickNameControl.valueChanges
+  private subscribeToPasswordChanges(form: FormGroup): void {
+    const passwordControl = form.get('passwordGroup.password');
+    if (passwordControl) {
+      passwordControl.valueChanges
         .pipe(debounceTime(200))
         .subscribe((value) => {
-          this.setNickNameMessage(nickNameControl);
+          this.setPasswordMessage(passwordControl);
         });
     }
   }
 
-  registerWithEmail() {
-    const formValue = Object.assign(this.registerForm.value, {
-      email: this.registerForm.value.email,
-      password: this.registerForm.value.password,
-    });
+  private subscribeToPasswordMatchChanges(form: FormGroup): void {
+    const passwordMatchControl = form.get('passwordGroup.passwordConfirm');
+    if (passwordMatchControl) {
+      passwordMatchControl.valueChanges
+        .pipe(debounceTime(200))
+        .subscribe(() => {
+          this.setPasswordMatchMessage(passwordMatchControl);
+        });
+    }
+  }
 
-    this.authService
-      .register(formValue)
-      .then((res: any) => {
-        this.toastr.success('Sucessfully registered');
+  registerWithEmail(): void {
+    const name = this.registerForm.value.name;
+    const email = this.registerForm.value.email;
+    const password = this.registerForm.value.passwordGroup.password;
+    const passwordConfirm =
+      this.registerForm.value.passwordGroup.passwordConfirm;
+
+    this.authService.register(name, email, password, passwordConfirm).subscribe(
+      (response) => {
+        // Assuming the user data is available in the response
+        this.toastr.success('Sucessfully logged in');
         this.router.navigate(['/home']);
-        this.setNickname();
-      })
-      .catch((error: any) => {
-        console.error(error);
-        this.toastr.error(this.errorMessage);
-
-        if (error.code === 'auth/email-already-in-use') {
-          this.errorMessage =
-            'Email address is already in use. Please choose another.';
-        } else if (error.code === 'auth/invalid-email') {
-          this.errorMessage =
-            'Invalid email address. Please enter a valid email.';
-        } else if (error.code === 'auth/weak-password') {
-          this.errorMessage = 'Weak password. Please use a stronger password.';
-        } else {
-          this.errorMessage =
-            'An error occurred during registration. Please try again later.';
-        }
-      });
+      },
+      (error) => {
+        console.error('POST request failed:', error);
+        this.toastr.error(error.message);
+      }
+    );
   }
 }
-
-// ngOnInit(): void {
-//   this.registerForm = this.fb.group(
-//     {
-//       email: ['', [Validators.required, Validators.email]],
-//       nickName: ['', [Validators.required, Validators.maxLength(10)]],
-//       password: [
-//         '',
-//         [
-//           Validators.required,
-//           Validators.minLength(3),
-//           Validators.maxLength(12),
-//         ],
-//       ],
-//       confirmPassword: [
-//         '',
-//         [
-//           Validators.required,
-//           Validators.minLength(3),
-//           Validators.maxLength(12),
-//         ],
-//       ],
-//     },
-//     { validator: passwordMatchValidator }
-//   );
-
-//   this.subscribeToPasswordChanges(this.registerForm);
-//   this.subscribeToEmailChanges(this.registerForm);
-//   this.subscribeToNicknameChanges(this.registerForm);
-//   this.subscribeToPasswordMatchChanges(this.registerForm);
-// }

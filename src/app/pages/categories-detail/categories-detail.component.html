@@ -1,64 +1,10 @@
-<div class="container" *ngIf="detail$ | async as detail">
-  <back-btn></back-btn>
-  <div class="products">
-    <ng-container *ngIf="loading; else content">
-      <article
-        class="product-skeleton"
-        @fadeInOut
-        *ngFor="let product of detail"
-      >
-        <div class="product_img">
-          <div class="skeleton-loader__image"></div>
-        </div>
+<ng-container *ngIf="detail$ | async as products">
+  <div class="wrapper">
+    <back-btn></back-btn>
+    <div class="" *ngIf="category$ | async as category">
+      <h2 class="">{{ category.name }}</h2>
+    </div>
 
-        <div class="product_content">
-          <h3 class="skeleton-loader__title"></h3>
-          <div class="product_price">
-            <h3 class="skeleton-loader__price">
-              <span class="naira"></span>
-            </h3>
-
-            <h3 class="slash_price skeleton-loader__price">
-              <span class="naira"></span>
-            </h3>
-          </div>
-          <div class="button">
-            <button class="skeleton-loader__button"></button>
-          </div>
-        </div>
-      </article>
-    </ng-container>
-
-    <ng-template #content>
-      <article class="product" @fadeInOut *ngFor="let product of detail">
-        <a href="/products/" [routerLink]="['/products', product.id]">
-          <div class="product_img">
-            <img
-              [src]="
-                'http://localhost:5500/img/products/250x250_' +
-                product.imageCover
-              "
-              [alt]="product.name"
-            />
-          </div>
-          <div class="product_content">
-            <h3 class="product_name">{{ product.name }}</h3>
-            <div class="product_price">
-              <h3>
-                <span class="naira">₦</span>
-                {{ product.highPrice | number }}
-              </h3>
-              <h3 class="slash_price" *ngIf="product.discountedLowPrice">
-                <span class="naira">₦</span>
-                {{ product.discountedLowPrice | number }}
-              </h3>
-            </div>
-            <div class="button">
-              <button class="add_btn">Add to cart</button>
-            </div>
-          </div>
-        </a>
-      </article>
-    </ng-template>
+    <product [products]="products"></product>
   </div>
-</div>
+</ng-container>
