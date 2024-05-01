@@ -1,31 +1,31 @@
-<!-- <ng-container *ngIf="cartItems$ | async as cartItems">
+<ng-container *ngIf="cartItems()">
   <div class="cart_length">
-    <h2>Cart ({{ cartItems.length }})</h2>
+    <h2>Cart ({{ cartItems()?.length }})</h2>
   </div>
 
   <div class="wrapper">
-    <div class="template" *ngFor="let cartItem of cartItems">
+    <div class="template" *ngFor="let cartItem of cartItems()">
       <div class="product">
         <div class="product_detail">
           <div class="product_img">
-            <img src="./assets/img/002.jpeg" alt="img" />
             <img
             [src]="
-              'http://localhost:5500/img/products/250x250_' + product.imageCover
+              'http://localhost:5500/img/products/250x250_' + cartItem.imageCover
             "
-            [alt]="product.name"
+            [alt]="cartItem.name"
           />
           </div>
           <div class="product_content">
             <h3>{{ cartItem?.name }}</h3>
-            <p>{{ cartItem?.colour }} <span></span></p>
+            <!-- <p>{{ cartItem?.colour }} <span></span></p> -->
           </div>
         </div>
         <div class="product_price">
-          <p class="full_price">{{ 134 | currency }}</p>
-          <p class="slashed_price">{{ 120 | currency }}</p>
+          <p class="full_price">{{ cartItem.discountedHighPrice | currency }}</p>
+          <p class="slashed_price">{{ cartItem.discountedLowPrice | currency }}</p>
         </div>
       </div>
+
       <div class="product_items">
         <div class="remove" (click)="deleteCartItem(cartItem._id)">
           <svg
@@ -62,6 +62,7 @@
           </svg>
           <p>remove</p>
         </div>
+        
         <div class="quantity">
           <svg
             (click)="decrease()"
@@ -85,7 +86,7 @@
               stroke-linejoin="round"
             />
           </svg>
-          <p>{{ count() }}</p>
+          <p>{{ cartItem?.quantity }}</p>
           <svg
             (click)="count.set(count() + 1)"
             width="24"
@@ -112,4 +113,8 @@
       </div>
     </div>
   </div>
-</ng-container> -->
+</ng-container>
+
+
+
+

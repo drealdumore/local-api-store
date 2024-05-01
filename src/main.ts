@@ -37,7 +37,6 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(withInterceptorsFromDi()),
     provideRouter(
       [
-        // http://localhost:5500/products/search?search=shoe
         {
           path: 'home',
           component: HomeComponent,
@@ -67,6 +66,15 @@ bootstrapApplication(AppComponent, {
           loadComponent: () =>
             import('./app/pages/product-detail/product-detail.component').then(
               (c) => c.ProductDetailComponent
+            ),
+        },
+
+        {
+          path: 'search',
+          title: 'Search',
+          loadComponent: () =>
+            import('./app/pages/search/search.component').then(
+              (c) => c.SearchComponent
             ),
         },
         {
@@ -118,6 +126,14 @@ bootstrapApplication(AppComponent, {
           path: '',
           redirectTo: '/home',
           pathMatch: 'full',
+        },
+        {
+          path: '404',
+          title: 'Error',
+          loadComponent: () =>
+            import('./app/components/error/error.component').then(
+              (c) => c.ErrorComponent
+            ),
         },
         {
           path: '**',

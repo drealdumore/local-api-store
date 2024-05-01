@@ -6,20 +6,20 @@
     <div class="summary">
       <div class="orders">
         <p>Orders</p>
-        <span>7 items</span>
+        <span>{{cartItems()?.length}} items</span>
       </div>
 
       <div class="sub_total">
         <p>Subtotal</p>
-        <span>{{ 1200 | currency }}</span>
+        <span>{{ cartTotal() | currency }}</span>
       </div>
 
       <button>checkout</button>
     </div>
 
-    <select [ngModel]="quantity()" (change)="onQuantitySelected($any($event.target).value)">
+    <!-- <select [ngModel]="quantity()" (change)="onQuantitySelected($any($event.target).value)">
     <option disabled>select a quantity</option>
     <option *ngFor="let q of qtyAvaliable()">{{q}}</option>
-    </select>
+    </select> -->
   </div>
 </div>

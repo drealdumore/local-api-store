@@ -33,7 +33,7 @@
   overflow-x: hidden;
 }
 
-.tabs {
+gap: 3rem; {
   gap: 3rem;
   display: flex;
   flex-direction: row;
@@ -73,4 +73,15 @@
  .tabs {
   width: auto; gap: 1rem;
  }
+}
+
+@media screen and (max-width: 480px) {
+
+ .profile {
+   width: 27rem;
+ }
+
+ .tabs {
+  gap: 3rem;
+ } 
 }

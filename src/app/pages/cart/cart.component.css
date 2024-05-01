@@ -9,3 +9,13 @@
 .cart-summary {
   align-self: flex-start;
 }
+
+
+@media screen and (max-width: 480px) {
+ .container {
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+      padding-bottom: 4rem;
+} 
+}

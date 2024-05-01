@@ -185,9 +185,9 @@ h2 {
 
 .color-active,
 .colors button:hover {
-  border: 1px solid #00b900;
-  color: #00b900;
-  background: #6bcc6b1a;
+  border: 1px solid #000;
+  color: #000;
+  background: #0709071a;
 }
 
 article {

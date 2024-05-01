@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, shareReplay, tap } from 'rxjs/operators';
 import { IProduct, IProductResponse } from '../interfaces/product.interface';
@@ -12,19 +13,20 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  products$ = this.http.get<IProductResponse>(`${this.url}/product`).pipe(
-    map((products) => products.data.data),
-    shareReplay(1),
-    catchError(this.handleError)
-  );
+  private products$ = this.http
+    .get<IProductResponse>(`${this.url}/product`)
+    .pipe(
+      map((products) => products.data.data),
+      shareReplay(1),
+      catchError(this.handleError)
+    );
 
-  // products = toSignal(this.products$)
-  products = signal(2);
+  products = toSignal(this.products$, { initialValue: [] as IProduct[] });
 
-  findProducts(id: string): Observable<IProduct | undefined> {
+  findProducts(id: string): Observable<any> {
     return this.products$.pipe(
       map((products) => products.find((product) => product.id === id)),
-      tap((product) => console.log('pro :', product)),
+      // tap((product) => console.log('found product:', product)),
       catchError(this.handleError)
     );
   }
@@ -50,7 +52,6 @@ export class ProductService {
   searchProducts(query: string): Observable<IProduct[]> {
     const productUrl = `${this.url}/product/search?search=${query}`;
     return this.http.get<IProductResponse>(productUrl).pipe(
-      tap((data) => console.log(data)),
       map((product: IProductResponse) => product.data.data),
       catchError(this.handleError)
     );

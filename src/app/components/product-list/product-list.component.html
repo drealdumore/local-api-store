@@ -1,15 +1,5 @@
-<!-- <ng-container>
-  <h2 class="">Deals for you</h2>
-  <div class="" *ngIf="products$ | async as products">
-    <product [products]="products" ></product>
-  </div>
-</ng-container> -->
+<ng-container *ngIf="products()">
+  <h2>Deals for you</h2>
 
-
-
-
-<ng-container *ngIf="products$ | async as products">
-  <h2 class="">Deals for you</h2>
-
-  <product [products]="products"></product>
+  <product [products]="products()"></product>
 </ng-container>

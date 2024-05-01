@@ -5,25 +5,26 @@
     <div class="wrapper flex">
       <div class="imgs flex">
         <div class="main_img">
-          <img [src]="mainImageUrl || 'http://localhost:5500/img/products/800x800_' + detail.imageCover" [alt]="detail.name" />
-          
+          <img
+            [src]="
+              mainImageUrl ||
+              'http://localhost:5500/img/products/800x800_' + detail.imageCover
+            "
+            [alt]="detail.name"
+          />
         </div>
 
         <div class="img_sub">
-  <div class="sub_img" *ngFor="let img of detail.images">
-    <div
-      
-      (click)="changeMainImage(img)"
-    >
-      <img
-        [src]="'http://localhost:5500/img/products/800x800_' + img"
-        [alt]="detail.name"
-        [class.active_img]="isActiveImage(img)"
-      />
-    </div>
-  </div>
-</div>
-
+          <div class="sub_img" *ngFor="let img of detail.images">
+            <div (click)="changeMainImage(img)">
+              <img
+                [src]="'http://localhost:5500/img/products/800x800_' + img"
+                [alt]="detail.name"
+                [class.active_img]="isActiveImage(img)"
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="detail">
@@ -47,7 +48,10 @@
         <div>
           <p class="select_p category_name">Select colors</p>
           <div class="colors">
-            <button *ngFor="let color of detail.colour" (click)="changeMainImageByColor(color.colour)">
+            <button
+              *ngFor="let color of detail.colour"
+              (click)="changeMainImageByColor(color.colour)"
+            >
               {{ color.colour }}
             </button>
             <!-- <button *ngFor="let color of detail.colour">
@@ -105,8 +109,8 @@
         </div>
 
         <div class="buttons">
-          <button class="button checkout">Checkout Now</button>
-          <button class="button cart">add to cart</button>
+          <button class="button checkout" routerLink="/cart" >Checkout Now</button>
+          <button class="button cart" (click)="addToCart(detail.id, detail.name, detail.colour[0].colour)"  >add to cart</button>
         </div>
 
         <div class="description_tabs">

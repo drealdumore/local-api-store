@@ -1,0 +1,57 @@
+.container {
+  padding: 2rem 0;
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    padding:  0;
+    
+  }
+
+  .error_container {
+    padding: 1rem 0;
+    width: 92vw;
+  }
+
+  .search_error {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 2rem;
+  }
+
+
+  .search_error svg {
+    height: auto;
+  width: 144px;
+  }
+
+  .search_error h3 {
+    font-size: 25px;
+  font-weight: 500;
+  }
+
+
+  .search_error p {
+    font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+  }
+
+
+  .search_error button {
+    padding: 7px 15px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  font-size: 18px;
+  transition:  all .4s ease;
+  }
+
+
+  .search_error button:hover {
+    border: 1px solid var(--black);
+  }
+}

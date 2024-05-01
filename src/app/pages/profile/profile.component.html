@@ -30,7 +30,8 @@
   </div>
 </div>
 
-<modal *ngIf="modalService.modalState$ | async">
+<modal *ngIf="modalService.observeModal$ | async">
+<!-- <modal *ngIf="modalService.modalState$ | async"> -->
   <logout-modal (logOutFn)="logout()"></logout-modal>
 </modal>
 

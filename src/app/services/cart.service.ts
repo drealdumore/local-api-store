@@ -1,11 +1,11 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, computed } from '@angular/core';
 import {
   Observable,
   catchError,
+  filter,
   forkJoin,
   map,
-  mergeMap,
   of,
   shareReplay,
   switchMap,
@@ -14,8 +14,8 @@ import {
 } from 'rxjs';
 import { CartItem, LoginResponse } from '../interfaces/login.interface';
 import { ProductService } from './product.service';
-import { and } from '@angular/fire/firestore';
 import { IProduct } from '../interfaces/product.interface';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -28,82 +28,81 @@ export class CartService {
     private productService: ProductService
   ) {}
 
-  // getCartItems(): Observable<CartItem[]> {
-  //   // {{URL}}/api/v1/user/me
-  //   const apiUrl = `${this.url}/user/me`
-
-  //   if (storedUserData) {
-  //     const userData = JSON.parse(storedUserData);
-  //     const cartItems = userData.user.cart;
-  //     console.log(cartItems);
-  //     return of(cartItems);
-  //   }
-
-  //   return of([]);
-  // }
-
-  cartItems(id: string): Observable<IProduct | undefined> {
+  // did not work: showing i hav to login even tho i am logged in.
+  cartItems(): Observable<IProduct[]> {
     return this.http.get<LoginResponse>(`${this.url}/user/me`).pipe(
       map((data) => data.data.user.cart),
-      tap((data) => console.log(data)),
-      switchMap((id) =>
-        this.productService.findProducts('5f33f9222474270017aebcd8').pipe(
-          tap((data) => console.log(data)),
-          catchError(this.handleError)
-        )
-      )
+      switchMap((cartItems) => {
+        const productObservables: Observable<IProduct>[] = cartItems.map(
+          (cartItem) => {
+            // Assuming 'productService.findProductById' is the method to find a product by ID
+            return this.productService
+              .findProducts(cartItem.product)
+              .pipe(catchError(this.handleError));
+          }
+        );
+
+        // Use forkJoin to combine multiple observables into a single observable
+        return forkJoin(productObservables);
+      })
     );
   }
 
-  // getCartItemsWithProducts(): Observable<IProduct | undefined> {
-  //   return this.http.get<LoginResponse>(`${this.url}/user/me`).pipe(
-  //     map((data) => data.data.user.cart),
-  //     map((data) => data.map((cartItem) => cartItem._id)),
-  //     tap((data) => console.log(data)),
-  //     switchMap((id) =>
-  //       this.productService.findProducts(id).pipe(
-  //         tap((data) => console.log(data)),
-  //         catchError(this.handleError)
-  //       )
-  //     ),
-  //     catchError(this.handleError)
-  //   );
-  // }
+  private cartItemsLocal(): Observable<IProduct[]> {
+    const storedUserData = localStorage.getItem('userData');
 
-  // getCartItemsWithProducts(): Observable<IProduct | undefined> {
-  //   return this.http.get<LoginResponse>(`${this.url}/user/me`).pipe(
-  //     map((data) => data.data.user.cart),
-  //     map((data) => data.map((cartItem) => cartItem._id)),
-  //     tap((data) => console.log(data)),
-  //     switchMap((id) =>
-  //       this.productService.findProducts(id).pipe(
-  //         tap((data) => console.log(data)),
-  //         catchError(this.handleError)
-  //       )
-  //     ),
-  //     catchError(this.handleError)
-  //   );
-  // }
+    if (storedUserData) {
+      const userData = JSON.parse(storedUserData);
+      const cartItems = userData.user.cart;
 
-  // cartrtItems$ = this.cartService.getCartItems().pipe(
-  //     switchMap((cartItems) => {
-  // const productObservables = cartItems.map((cartItem) => {
-  //   // Assuming you have a method in your service to get product details by ID
-  //   return this.productService.findProducts(cartItem._id);
-  // });
+      const productObservables: Observable<IProduct>[] = cartItems.map(
+        (cartItem: { product: any }) => {
+          return this.productService.findProducts(cartItem.product).pipe(
+            catchError(this.handleError),
+            map((product) => product)
+          );
+        }
+      );
 
-  //       // Combine the observables for individual products into a single observable
-  //       return forkJoin(productObservables).pipe(
-  //         map((products) => {
-  //           // Map the products to the corresponding cart items
-  //           return cartItems.map((cartItem, index) => ({
-  //             ...cartItem,
-  //             product: products[index],
-  //           }));
-  //         })
-  //       );
-  //     })
-  //   );
+      // Use forkJoin to combine multiple observables into a single observable
+      return forkJoin(productObservables).pipe(
+        map((products) => products.filter((product) => product !== undefined))
+      );
+    }
+
+    return of([]);
+  }
+  cartItemLocalSignal = toSignal(this.cartItemsLocal());
+
+  subTotal = computed(() =>
+    this.cartItemLocalSignal()?.reduce(
+      (acc, item) => acc + item.quantity * Number(item.discountedHighPrice),
+      0
+    )
+  );
+
+  findInCartArray(id: string): Observable<boolean> {
+    const storedUserData = localStorage.getItem('userData');
+
+    return of(storedUserData).pipe(
+      map((userData) => {
+        if (userData) {
+          const parsedUserData = JSON.parse(userData);
+          const cartItems = parsedUserData.user.cart;
+          const productIds = cartItems.map(
+            (product: { product: any }) => product.product
+          );
+          return productIds.includes(id);
+        }
+        return false;
+      }),
+      map((data) => data.id === id),
+      tap((result) => {
+        // Perform side effect, e.g., logging
+        console.log(`Product with ID ${id} is in cart: ${result}`);
+      })
+    );
+  }
 
   addToCart(id: string, name: string, colour: string): Observable<any> {
     const apiUrl = `${this.url}/user/cart`;
@@ -132,73 +131,12 @@ export class CartService {
     );
   }
 
-  ngOnInit(): void {
-    // this.cartService.getCartItemsWithProducts().subscribe(
-    //   (data) => {
-    //     this.cartItemsWithProducts = data;
-    //     console.log('Cart items with products:', this.cartItemsWithProducts);
-    //   },
-    //   (error) => {
-    //     console.error('Error fetching cart items with products:', error);
-    //   }
-    // );
-  }
-
   get$ = this.http.get<any>(`${this.url}/user/me`).pipe(
     tap((data) => console.log(data)),
     shareReplay(1),
     map((data) => data.data.data),
     catchError(this.handleError)
   );
-
-  // getCartItemsWithProducts(): Observable<any[]> {
-  //   return this.getCartItems().pipe(
-  //     map((cartItems) => cartItems.map((cartItem) => cartItem._id)),
-  //     map((productIds) =>
-  //       forkJoin(
-  //         productIds.map((productId) =>
-  //           this.productService.findProducts(productId)
-  //         )
-  //       )
-  //     ),
-  //     catchError(this.handleError)
-  //   );
-  // }
-
-  // getCartItemsWithProducts(): Observable<any[]> {
-  //   return this.getCartItems().pipe(
-  //     map((cartItems) => cartItems.map((cartItem) => cartItem._id)),
-  //     mergeMap((productIds) =>
-  //       forkJoin(
-  //         productIds.map((productId) =>
-  //           this.productService.findProducts(productId)
-  //         )
-  //       )
-  //     ),
-  //     catchError(this.handleError)
-  //   );
-  // }
-
-  // getCartItemsWithProducts(): Observable<any[]> {
-  //   return this.getCartItems().pipe(
-  //     map((cartItems) => cartItems.map((cartItem) => cartItem._id)),
-  //     mergeMap((productIds) => {
-  //       const observables = productIds.map((productId) =>
-  //         this.productService.findProducts(productId).pipe(
-  //           catchError((error) => {
-  //             console.error(
-  //               `Error fetching product with ID ${productId}:`,
-  //               error
-  //             );
-  //             return of(null);
-  //           })
-  //         )
-  //       );
-  //       return forkJoin(observables);
-  //     }),
-  //     catchError(this.handleError)
-  //   );
-  // }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -216,4 +154,21 @@ export class CartService {
     // Return an observable with a user-facing error message.
     return throwError('Something bad happened; please try again later.');
   }
+
+  // handleError(error: HttpErrorResponse): Observable<never> {
+  //   let errorMessage: string;
+
+  //   if (error.error instanceof ErrorEvent) {
+  //     // Client-side error
+  //     errorMessage = `Error: ${error.error.message}`;
+  //   } else {
+  //     // Server-side error
+  //     errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  //   }
+
+  //   console.error(errorMessage);
+
+  //   // Returning an observable that emits an error
+  //   return throwError(errorMessage);
+  // }
 }

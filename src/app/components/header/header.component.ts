@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject  } from '@angular/core';
 import { SearchComponent } from '../search/search.component';
 import { RouterModule } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'top',
@@ -10,17 +11,13 @@ import { RouterModule } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
-  constructor() { }
 
-  ngOnInit(): void {
-    // this.cartService.cartItems().reduce
-  }
 
-cartCount = signal(12)
 
-// private cartService = inject(CartService);
+private  cartService = inject(CartService)
+cartItems = this.cartService.cartItemLocalSignal
 
 
 

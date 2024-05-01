@@ -79,3 +79,10 @@
 svg {
   cursor: pointer;
 }
+
+@media screen and (max-width: 480px) {
+  .template {
+    width: 380px;
+    padding: 9px;
+  }
+}

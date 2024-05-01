@@ -7,50 +7,71 @@ import {
   OnInit,
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Params, RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { tap, catchError, EMPTY, Observable, map } from 'rxjs';
 import { BackBtnComponent } from 'src/app/components/back-btn/back-btn.component';
 import { ProductComponent } from 'src/app/components/product/product.component';
 import { StarComponent } from 'src/app/components/star/star.component';
 import { IProduct } from 'src/app/interfaces/product.interface';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, StarComponent, BackBtnComponent, ProductComponent],
+  imports: [CommonModule, StarComponent, BackBtnComponent, ProductComponent, RouterModule],
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductDetailComponent implements OnInit {
   mainImageUrl: string = '';
-  constructor(private productService: ProductService) {}
+  activeImage: string | null = null;
 
   detail$: Observable<any> | undefined;
   related$: Observable<any> | undefined;
+
   loading: boolean = false;
   materialActive: boolean = false;
   modelActive: boolean = false;
   descriptionActive: boolean = true;
-  activeImage: string | null = null;
 
   @Input() id = '';
+  constructor(
+    private productService: ProductService,
+    private route: ActivatedRoute, 
+    private cartService: CartService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
-    if (this.id) {
-      this.detail$ = this.productService.getProduct(this.id).pipe(
-        catchError(() => {
-          return EMPTY;
-        })
-      );
+    this.route.params.forEach(() => {
+      if (this.id) {
+        this.detail$ = this.productService.getProduct(this.id).pipe(
+          catchError(() => {
+            return EMPTY;
+          })
+        );
 
-      this.related$ = this.productService.getRelatedProducts(this.id).pipe(
-        catchError(() => {
-          return EMPTY;
-        })
-      );
-    }
+        this.related$ = this.productService.getRelatedProducts(this.id).pipe(
+          catchError(() => {
+            return EMPTY;
+          })
+        );
+      }
+    });
+  }
+
+
+  addToCart(id: string, name: string, colour: string) {
+    this.cartService.addToCart(id, name, colour).subscribe(
+      (data) => {
+        console.log('Item Added to cart:', data);
+        this.toastr.success('Added to cart');
+      },
+      (error) => this.toastr.error(error)
+    );
   }
 
   changeMainImage(img: string): boolean {
@@ -83,18 +104,6 @@ export class ProductDetailComponent implements OnInit {
       }
     }
   }
-
-  //   changeMainImageByColor(color: string): void {
-  //   const selectedColor = this.detail?.colour.find((c: any) => c.colour === color);
-
-  //   if (selectedColor) {
-  //     // Log the selected color to ensure it's being found
-  //     console.log('Selected Color:', selectedColor);
-
-  //     // Update the main image based on the selected color
-  //     this.mainImageUrl = 'http://localhost:5500/img/products/800x800_' + (selectedColor.colourImage || this.detail?.imageCover);
-  //   }
-  // }
 
   extractName(fullName: string): string {
     // Split the full name into individual words

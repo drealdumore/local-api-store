@@ -8,6 +8,7 @@ import { ModalService } from '../../services/modal.service';
   imports: [CommonModule],
   templateUrl: './logout-modal.component.html',
   styleUrls: ['./logout-modal.component.css'],
+  // providers: [ModalService],
 })
 export class LogoutModalComponent {
   private modalService = inject(ModalService);
@@ -15,6 +16,7 @@ export class LogoutModalComponent {
 
   close() {
     this.modalService.closeModal();
+    
   }
 
   logOut() {

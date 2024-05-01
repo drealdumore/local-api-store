@@ -1,7 +1,8 @@
-<form action="">
+<form [formGroup]="searchForm" (ngSubmit)="search()">
   <div>
-    <input type="search" placeholder="search" />
+    <input type="search" formControlName="input" placeholder="search" />
     <svg
+      (click)="search()"
       width="24"
       height="24"
       viewBox="0 0 24 24"

@@ -5,7 +5,7 @@ input {
   width: 100%;
   height: auto;
   border: none;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
   font-size: 17px;
 }
 
